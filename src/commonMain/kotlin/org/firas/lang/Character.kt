@@ -130,8 +130,77 @@ class Character {
          * @since   Java 1.5
          */
         fun isDigit(codePoint: Int): Boolean {
-            return codePoint in '0'.toInt()..'9'.toInt()
-            // TODO: other ranges of digits
+            return codePoint in '0'.toInt()..'9'.toInt() || codePoint in '０'.toInt()..'９'.toInt()
+                    || codePoint in 0x660..0x669 || codePoint in 0x6F0..0x6F9 || codePoint in 0x966..0x96F
+        }
+
+        /**
+         * Determines if the specified character is white space according to Java.
+         * A character is a Java whitespace character if and only if it satisfies
+         * one of the following criteria:
+         *
+         *  *  It is a Unicode space character (`SPACE_SEPARATOR`,
+         * `LINE_SEPARATOR`, or `PARAGRAPH_SEPARATOR`)
+         * but is not also a non-breaking space (`'\u005Cu00A0'`,
+         * `'\u005Cu2007'`, `'\u005Cu202F'`).
+         *  *  It is `'\u005Ct'`, U+0009 HORIZONTAL TABULATION.
+         *  *  It is `'\u005Cn'`, U+000A LINE FEED.
+         *  *  It is `'\u005Cu000B'`, U+000B VERTICAL TABULATION.
+         *  *  It is `'\u005Cf'`, U+000C FORM FEED.
+         *  *  It is `'\u005Cr'`, U+000D CARRIAGE RETURN.
+         *  *  It is `'\u005Cu001C'`, U+001C FILE SEPARATOR.
+         *  *  It is `'\u005Cu001D'`, U+001D GROUP SEPARATOR.
+         *  *  It is `'\u005Cu001E'`, U+001E RECORD SEPARATOR.
+         *  *  It is `'\u005Cu001F'`, U+001F UNIT SEPARATOR.
+         *
+         *
+         *
+         * **Note:** This method cannot handle [ supplementary characters](#supplementary). To support
+         * all Unicode characters, including supplementary characters, use
+         * the [.isWhitespace] method.
+         *
+         * @param   ch the character to be tested.
+         * @return  `true` if the character is a Java whitespace
+         * character; `false` otherwise.
+         * @see Character.isSpaceChar
+         * @since  OpenJDK 1.1
+         */
+        fun isWhitespace(ch: Char): Boolean {
+            return isWhitespace(ch.toInt())
+        }
+
+        /**
+         * Determines if the specified character (Unicode code point) is
+         * white space according to Java.  A character is a Java
+         * whitespace character if and only if it satisfies one of the
+         * following criteria:
+         *
+         *  *  It is a Unicode space character ([.SPACE_SEPARATOR],
+         * [.LINE_SEPARATOR], or [.PARAGRAPH_SEPARATOR])
+         * but is not also a non-breaking space (`'\u005Cu00A0'`,
+         * `'\u005Cu2007'`, `'\u005Cu202F'`).
+         *  *  It is `'\u005Ct'`, U+0009 HORIZONTAL TABULATION.
+         *  *  It is `'\u005Cn'`, U+000A LINE FEED.
+         *  *  It is `'\u005Cu000B'`, U+000B VERTICAL TABULATION.
+         *  *  It is `'\u005Cf'`, U+000C FORM FEED.
+         *  *  It is `'\u005Cr'`, U+000D CARRIAGE RETURN.
+         *  *  It is `'\u005Cu001C'`, U+001C FILE SEPARATOR.
+         *  *  It is `'\u005Cu001D'`, U+001D GROUP SEPARATOR.
+         *  *  It is `'\u005Cu001E'`, U+001E RECORD SEPARATOR.
+         *  *  It is `'\u005Cu001F'`, U+001F UNIT SEPARATOR.
+         *
+         *
+         * @param   codePoint the character (Unicode code point) to be tested.
+         * @return  `true` if the character is a Java whitespace
+         * character; `false` otherwise.
+         * @see Character.isSpaceChar
+         * @since  OpenJDK 1.5
+         */
+        fun isWhitespace(codePoint: Int): Boolean {
+            return codePoint == ' '.toInt() || codePoint == '\t'.toInt()
+                    || codePoint == '\n'.toInt() || codePoint == '\r'.toInt()
+                    || codePoint == 0x0B || codePoint == 0x0C
+                    || codePoint == 0x1C || codePoint == 0x1D || codePoint == 0x1E || codePoint == 0x1F
         }
 
         /**
