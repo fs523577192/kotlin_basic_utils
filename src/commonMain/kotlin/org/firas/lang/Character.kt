@@ -86,7 +86,7 @@ class Character {
          * <p><b>Note:</b> This method cannot handle <a
          * href="#supplementary"> supplementary characters</a>. To support
          * all Unicode characters, including supplementary characters, use
-         * the {@link #isDigit(int)} method.
+         * the {@link #isDigitCode(int)} method.
          *
          * @param   ch   the character to be tested.
          * @return  `true` if the character is a digit;
@@ -95,8 +95,8 @@ class Character {
          * @see     Character#forDigit(int, int)
          * @see     Character#getType(char)
          */
-        fun isDigit(ch: Char): Boolean {
-            return isDigit(ch.toInt())
+        fun isDigitChar(ch: Char): Boolean {
+            return isDigitCode(ch.toInt())
         }
 
         /**
@@ -129,7 +129,7 @@ class Character {
          * @see     Character#getType(int)
          * @since   Java 1.5
          */
-        fun isDigit(codePoint: Int): Boolean {
+        fun isDigitCode(codePoint: Int): Boolean {
             return codePoint in '0'.toInt()..'9'.toInt() || codePoint in '０'.toInt()..'９'.toInt()
                     || codePoint in 0x660..0x669 || codePoint in 0x6F0..0x6F9 || codePoint in 0x966..0x96F
         }
@@ -157,7 +157,7 @@ class Character {
          *
          * **Note:** This method cannot handle [ supplementary characters](#supplementary). To support
          * all Unicode characters, including supplementary characters, use
-         * the [.isWhitespace] method.
+         * the [.isWhitespaceCode] method.
          *
          * @param   ch the character to be tested.
          * @return  `true` if the character is a Java whitespace
@@ -165,8 +165,8 @@ class Character {
          * @see Character.isSpaceChar
          * @since  OpenJDK 1.1
          */
-        fun isWhitespace(ch: Char): Boolean {
-            return isWhitespace(ch.toInt())
+        fun isWhitespaceChar(ch: Char): Boolean {
+            return isWhitespaceCode(ch.toInt())
         }
 
         /**
@@ -196,7 +196,7 @@ class Character {
          * @see Character.isSpaceChar
          * @since  OpenJDK 1.5
          */
-        fun isWhitespace(codePoint: Int): Boolean {
+        fun isWhitespaceCode(codePoint: Int): Boolean {
             return codePoint == ' '.toInt() || codePoint == '\t'.toInt()
                     || codePoint == '\n'.toInt() || codePoint == '\r'.toInt()
                     || codePoint == 0x0B || codePoint == 0x0C

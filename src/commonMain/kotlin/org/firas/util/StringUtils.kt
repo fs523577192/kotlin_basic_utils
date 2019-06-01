@@ -86,7 +86,7 @@ abstract class StringUtils {
          * its length is greater than 0, and it does not contain whitespace only
          * @see .hasText
          * @see .hasLength
-         * @see Character.isWhitespace
+         * @see Character.isWhitespaceCode
          */
         fun hasText(str: CharSequence?): Boolean {
             return !str.isNullOrEmpty() && containsText(str)
@@ -103,7 +103,7 @@ abstract class StringUtils {
          * length is greater than 0, and it does not contain whitespace only
          * @see .hasText
          * @see .hasLength
-         * @see Character.isWhitespace
+         * @see Character.isWhitespaceCode
          */
         fun hasText(str: String?): Boolean {
             return !str.isNullOrEmpty() && containsText(str)
@@ -114,7 +114,7 @@ abstract class StringUtils {
          * @param str the `CharSequence` to check (may be `null`)
          * @return `true` if the `CharSequence` is not empty and
          * contains at least 1 whitespace character
-         * @see Character.isWhitespace
+         * @see Character.isWhitespaceCode
          */
         fun containsWhitespace(str: CharSequence?): Boolean {
             if (str.isNullOrEmpty()) {
@@ -123,22 +123,11 @@ abstract class StringUtils {
 
             val strLen = str.length
             for (i in 0 until strLen) {
-                if (Character.isWhitespace(str[i])) {
+                if (Character.isWhitespaceChar(str[i])) {
                     return true
                 }
             }
             return false
-        }
-
-        /**
-         * Check whether the given `String` contains any whitespace characters.
-         * @param str the `String` to check (may be `null`)
-         * @return `true` if the `String` is not empty and
-         * contains at least 1 whitespace character
-         * @see .containsWhitespace
-         */
-        fun containsWhitespace(str: String): Boolean {
-            return containsWhitespace(str as CharSequence)
         }
 
         /**
@@ -155,11 +144,11 @@ abstract class StringUtils {
             var beginIndex = 0
             var endIndex = str.length - 1
 
-            while (beginIndex <= endIndex && Character.isWhitespace(str[beginIndex])) {
+            while (beginIndex <= endIndex && Character.isWhitespaceChar(str[beginIndex])) {
                 beginIndex++
             }
 
-            while (endIndex > beginIndex && Character.isWhitespace(str[endIndex])) {
+            while (endIndex > beginIndex && Character.isWhitespaceChar(str[endIndex])) {
                 endIndex--
             }
 
@@ -182,7 +171,7 @@ abstract class StringUtils {
             val sb = StringBuilder(str.length)
             for (i in 0 until len) {
                 val c = str[i]
-                if (!Character.isWhitespace(c)) {
+                if (!Character.isWhitespaceChar(c)) {
                     sb.append(c)
                 }
             }
@@ -305,7 +294,7 @@ abstract class StringUtils {
         private fun containsText(str: CharSequence): Boolean {
             val strLen = str.length
             for (i in 0 until strLen) {
-                if (!Character.isWhitespace(str[i])) {
+                if (!Character.isWhitespaceChar(str[i])) {
                     return true
                 }
             }

@@ -67,7 +67,7 @@ class Arrays private constructor() {
          * @param a the array to be filled
          * @param value the value to be stored in all elements of the array
          */
-        fun fill(a: IntArray, value: Int) {
+        fun fillIntArray(a: IntArray, value: Int) {
             var i = 0
             val len = a.size
             while (i < len) {
@@ -93,7 +93,7 @@ class Arrays private constructor() {
          * @throws ArrayIndexOutOfBoundsException if <tt>fromIndex &lt; 0</tt> or
          * <tt>toIndex &gt; a.length</tt>
          */
-        fun fill(a: IntArray, fromIndex: Int, toIndex: Int, value: Int) {
+        fun fillIntRange(a: IntArray, fromIndex: Int, toIndex: Int, value: Int) {
             rangeCheck(a.size, fromIndex, toIndex)
             for (i in fromIndex until toIndex) {
                 a[i] = value
@@ -120,8 +120,8 @@ class Arrays private constructor() {
          * that this guarantees that the return value will be &gt;= 0 if
          * and only if the key is found.
          */
-        fun binarySearch(a: LongArray, key: Long): Int {
-            return binarySearch0(a, 0, a.size, key)
+        fun binarySearchLongArray(a: LongArray, key: Long): Int {
+            return binarySearchLongRange0(a, 0, a.size, key)
         }
 
         /**
@@ -154,16 +154,16 @@ class Arrays private constructor() {
          * @throws ArrayIndexOutOfBoundsException if `fromIndex < 0 or toIndex > a.length`
          * @since Java 1.6
          */
-        fun binarySearch(
+        fun binarySearchLongRange(
             a: LongArray, fromIndex: Int, toIndex: Int,
             key: Long
         ): Int {
             rangeCheck(a.size, fromIndex, toIndex)
-            return binarySearch0(a, fromIndex, toIndex, key)
+            return binarySearchLongRange0(a, fromIndex, toIndex, key)
         }
 
         // Like public version, but without range checks.
-        private fun binarySearch0(
+        private fun binarySearchLongRange0(
             a: LongArray, fromIndex: Int, toIndex: Int,
             key: Long
         ): Int {
@@ -204,8 +204,8 @@ class Arrays private constructor() {
          * that this guarantees that the return value will be &gt;= 0 if
          * and only if the key is found.
          */
-        fun binarySearch(a: IntArray, key: Int): Int {
-            return binarySearch0(a, 0, a.size, key)
+        fun binarySearchIntArray(a: IntArray, key: Int): Int {
+            return binarySearchIntRange0(a, 0, a.size, key)
         }
 
         /**
@@ -238,16 +238,16 @@ class Arrays private constructor() {
          * @throws ArrayIndexOutOfBoundsException if `fromIndex < 0 or toIndex > a.length`
          * @since Java 1.6
          */
-        fun binarySearch(
+        fun binarySearchIntRange(
             a: IntArray, fromIndex: Int, toIndex: Int,
             key: Int
         ): Int {
             rangeCheck(a.size, fromIndex, toIndex)
-            return binarySearch0(a, fromIndex, toIndex, key)
+            return binarySearchIntRange0(a, fromIndex, toIndex, key)
         }
 
         // Like public version, but without range checks.
-        private fun binarySearch0(
+        private fun binarySearchIntRange0(
             a: IntArray, fromIndex: Int, toIndex: Int,
             key: Int
         ): Int {
@@ -297,8 +297,8 @@ class Arrays private constructor() {
          * @throws ClassCastException if the search key is not comparable to the
          * elements of the array.
          */
-        fun <T: Comparable<T>> binarySearch(a: Array<T>, key: T): Int {
-            return binarySearch0(a, 0, a.size, key)
+        fun <T: Comparable<T>> binarySearchArray(a: Array<T>, key: T): Int {
+            return binarySearchRange0(a, 0, a.size, key)
         }
 
         /**
@@ -339,16 +339,16 @@ class Arrays private constructor() {
          * @throws ArrayIndexOutOfBoundsException if `fromIndex < 0 or toIndex > a.length`
          * @since Java 1.6
          */
-        fun <T: Comparable<T>> binarySearch(
+        fun <T: Comparable<T>> binarySearchRange(
             a: Array<T>, fromIndex: Int, toIndex: Int,
             key: T
         ): Int {
             rangeCheck(a.size, fromIndex, toIndex)
-            return binarySearch0(a, fromIndex, toIndex, key)
+            return binarySearchRange0(a, fromIndex, toIndex, key)
         }
 
         // Like public version, but without range checks.
-        private fun <T: Comparable<T>> binarySearch0(
+        private fun <T: Comparable<T>> binarySearchRange0(
             a: Array<T>, fromIndex: Int, toIndex: Int,
             key: T
         ): Int {
@@ -401,8 +401,8 @@ class Arrays private constructor() {
          * or the search key is not comparable to the
          * elements of the array using this comparator.
          */
-        fun <T> binarySearch(a: Array<T>, key: T, c: Comparator<in T>): Int {
-            return binarySearch0(a, 0, a.size, key, c)
+        fun <T> binarySearchArrayWithComparator(a: Array<T>, key: T, c: Comparator<in T>): Int {
+            return binarySearchRangeWithComparator0(a, 0, a.size, key, c)
         }
 
         /**
@@ -444,16 +444,16 @@ class Arrays private constructor() {
          * @throws ArrayIndexOutOfBoundsException if `fromIndex < 0 or toIndex > a.length`
          * @since Java 1.6
          */
-        fun <T> binarySearch(
+        fun <T> binarySearchRangeWithComparator(
             a: Array<T>, fromIndex: Int, toIndex: Int,
             key: T, c: Comparator<in T>
         ): Int {
             rangeCheck(a.size, fromIndex, toIndex)
-            return binarySearch0(a, fromIndex, toIndex, key, c)
+            return binarySearchRangeWithComparator0(a, fromIndex, toIndex, key, c)
         }
 
         // Like public version, but without range checks.
-        fun <T> binarySearch0(
+        fun <T> binarySearchRangeWithComparator0(
             a: Array<T>, fromIndex: Int, toIndex: Int,
             key: T, c: Comparator<in T>
         ): Int {
@@ -488,7 +488,7 @@ class Arrays private constructor() {
          * @param a2 the other array to be tested for equality
          * @return `true` if the two arrays are equal
          */
-        fun equals(a: LongArray?, a2: LongArray?): Boolean {
+        fun longArrayEquals(a: LongArray?, a2: LongArray?): Boolean {
             if (a === a2) {
                 return true
             }
@@ -520,7 +520,7 @@ class Arrays private constructor() {
          * @param a2 the other array to be tested for equality
          * @return `true` if the two arrays are equal
          */
-        fun equals(a: IntArray?, a2: IntArray?): Boolean {
+        fun intArrayEquals(a: IntArray?, a2: IntArray?): Boolean {
             if (a === a2) {
                 return true
             }
@@ -552,7 +552,7 @@ class Arrays private constructor() {
          * @param a2 the other array to be tested for equality
          * @return `true` if the two arrays are equal
          */
-        fun equals(a: ShortArray?, a2: ShortArray?): Boolean {
+        fun shortArrayEquals(a: ShortArray?, a2: ShortArray?): Boolean {
             if (a === a2) {
                 return true
             }
@@ -584,7 +584,7 @@ class Arrays private constructor() {
          * @param a2 the other array to be tested for equality
          * @return `true` if the two arrays are equal
          */
-        fun equals(a: CharArray?, a2: CharArray?): Boolean {
+        fun charArrayEquals(a: CharArray?, a2: CharArray?): Boolean {
             if (a === a2) {
                 return true
             }
@@ -616,7 +616,7 @@ class Arrays private constructor() {
          * @param a2 the other array to be tested for equality
          * @return `true` if the two arrays are equal
          */
-        fun equals(a: ByteArray?, a2: ByteArray?): Boolean {
+        fun byteArrayEquals(a: ByteArray?, a2: ByteArray?): Boolean {
             if (a === a2) {
                 return true
             }
@@ -648,7 +648,7 @@ class Arrays private constructor() {
          * @param a2 the other array to be tested for equality
          * @return `true` if the two arrays are equal
          */
-        fun equals(a: BooleanArray?, a2: BooleanArray?): Boolean {
+        fun booleanArrayEquals(a: BooleanArray?, a2: BooleanArray?): Boolean {
             if (a === a2) {
                 return true
             }
@@ -683,7 +683,7 @@ class Arrays private constructor() {
          * @param a2 the other array to be tested for equality
          * @return `true` if the two arrays are equal
          */
-        fun equals(a: Array<out Any?>?, a2: Array<out Any?>?): Boolean {
+        fun arrayEquals(a: Array<out Any?>?, a2: Array<out Any?>?): Boolean {
             if (a === a2) {
                 return true
             }
@@ -721,7 +721,7 @@ class Arrays private constructor() {
          * @return a content-based hash code for `a`
          * @since Java 1.5
          */
-        fun hashCode(a: LongArray?): Int {
+        fun longArrayHashCode(a: LongArray?): Int {
             if (a == null) {
                 return 0
             }
@@ -750,7 +750,7 @@ class Arrays private constructor() {
          * @return a content-based hash code for `a`
          * @since 1.5
          */
-        fun hashCode(a: IntArray?): Int {
+        fun intArrayHashCode(a: IntArray?): Int {
             if (a == null) {
                 return 0
             }
@@ -778,7 +778,7 @@ class Arrays private constructor() {
          * @return a content-based hash code for `a`
          * @since 1.5
          */
-        fun hashCode(a: ShortArray?): Int {
+        fun shortArrayHashCode(a: ShortArray?): Int {
             if (a == null) {
                 return 0
             }
@@ -806,7 +806,7 @@ class Arrays private constructor() {
          * @return a content-based hash code for `a`
          * @since 1.5
          */
-        fun hashCode(a: CharArray?): Int {
+        fun charArrayHashCode(a: CharArray?): Int {
             if (a == null) {
                 return 0
             }
@@ -834,7 +834,7 @@ class Arrays private constructor() {
          * @return a content-based hash code for `a`
          * @since 1.5
          */
-        fun hashCode(a: ByteArray?): Int {
+        fun byteArrayHashCode(a: ByteArray?): Int {
             if (a == null) {
                 return 0
             }
@@ -862,7 +862,7 @@ class Arrays private constructor() {
          * @return a content-based hash code for `a`
          * @since 1.5
          */
-        fun hashCode(a: BooleanArray?): Int {
+        fun booleanArrayHashCode(a: BooleanArray?): Int {
             if (a == null) {
                 return 0
             }
@@ -896,7 +896,7 @@ class Arrays private constructor() {
          * @see .deepHashCode
          * @since Java 1.5
          */
-        fun hashCode(a: Array<out Any?>?): Int {
+        fun arrayHashCode(a: Array<out Any?>?): Int {
             if (a == null) {
                 return 0
             }

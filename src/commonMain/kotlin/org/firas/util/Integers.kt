@@ -42,7 +42,7 @@ class Integers private constructor() {
          * @return the signum function of the specified `Int` value.
          * @since Java 1.5
          */
-        fun signum(i: Int): Int {
+        fun signumInt(i: Int): Int {
             // HD, Section 2-7
             return i.shr(31) or (-i).ushr(31)
         }
@@ -56,7 +56,7 @@ class Integers private constructor() {
          * @return the signum function of the specified `Long` value.
          * @since Java 1.5
          */
-        fun signum(i: Long): Int {
+        fun signumLong(i: Long): Int {
             // HD, Section 2-7
             return (i.shr(63) or (-i).ushr(63)).toInt()
         }
@@ -71,7 +71,7 @@ class Integers private constructor() {
          * representation of the specified `Int` value.
          * @since Java 1.5
          */
-        fun bitCount(i: Int): Int {
+        fun bitCountInt(i: Int): Int {
             // HD, Figure 5-2
             var n = i - (i.ushr(1) and 0x55555555)
             n = (n and 0x33333333) + (n.ushr(2) and 0x33333333)
@@ -91,7 +91,7 @@ class Integers private constructor() {
          * representation of the specified `long` value.
          * @since 1.5
          */
-        fun bitCount(i: Long): Int {
+        fun bitCountLong(i: Long): Int {
             // HD, Figure 5-2
             var n = i - (i.ushr(1) and 0x5555555555555555L)
             n = (n and 0x3333333333333333L) + (n.ushr(2) and 0x3333333333333333L)
@@ -115,7 +115,7 @@ class Integers private constructor() {
          * the specified value is itself equal to zero.
          * @since Java 1.5
          */
-        fun highestOneBit(i: Int): Int {
+        fun highestOneBitInt(i: Int): Int {
             var n = i
             // HD, Figure 3-1
             n = n or (n shr 1)
@@ -139,7 +139,7 @@ class Integers private constructor() {
          * the specified value is itself equal to zero.
          * @since Java 1.5
          */
-        fun lowestOneBit(i: Int): Int {
+        fun lowestOneBitInt(i: Int): Int {
             // HD, Section 2-1
             return i and -i
         }
@@ -166,7 +166,7 @@ class Integers private constructor() {
          * is equal to zero.
          * @since Java 1.5
          */
-        fun numberOfLeadingZeros(i: Int): Int {
+        fun numberOfLeadingZerosInt(i: Int): Int {
             var i = i
             // HD, Figure 5-6
             if (i == 0) {
@@ -215,7 +215,7 @@ class Integers private constructor() {
          * is equal to zero.
          * @since 1.5
          */
-        fun numberOfLeadingZeros(i: Long): Int {
+        fun numberOfLeadingZerosLong(i: Long): Int {
             // HD, Figure 5-6
             if (i == 0L)
                 return 64
@@ -259,7 +259,7 @@ class Integers private constructor() {
          * to zero.
          * @since Java 1.5
          */
-        fun numberOfTrailingZeros(i: Long): Int {
+        fun numberOfTrailingZerosLong(i: Long): Int {
             // HD, Figure 5-14
             if (i == 0L) return 64
             var n = 63
@@ -306,7 +306,7 @@ class Integers private constructor() {
          *     to zero.
          * @since Java 1.5
          */
-        fun numberOfTrailingZeros(i: Int): Int {
+        fun numberOfTrailingZerosInt(i: Int): Int {
             var i = i
 
             // HD, Figure 5-14
@@ -360,7 +360,7 @@ class Integers private constructor() {
          * specified number of bits.
          * @since Java 1.5
          */
-        fun rotateLeft(i: Int, distance: Int): Int {
+        fun rotateLeftInt(i: Int, distance: Int): Int {
             return i shl distance or i.ushr(-distance)
         }
 
@@ -385,7 +385,7 @@ class Integers private constructor() {
          * specified number of bits.
          * @since Java 1.5
          */
-        fun rotateRight(i: Int, distance: Int): Int {
+        fun rotateRightInt(i: Int, distance: Int): Int {
             return i.ushr(distance) or (i shl -distance)
         }
 
@@ -399,14 +399,14 @@ class Integers private constructor() {
          * specified `Int` value.
          * @since Java 1.5
          */
-        fun reverse(i: Int): Int {
+        fun reverseInt(i: Int): Int {
             var i = i
             // HD, Figure 7-1
             i = i and 0x55555555 shl 1 or (i.ushr(1) and 0x55555555)
             i = i and 0x33333333 shl 2 or (i.ushr(2) and 0x33333333)
             i = i and 0x0f0f0f0f shl 4 or (i.ushr(4) and 0x0f0f0f0f)
 
-            return reverseBytes(i)
+            return reverseBytesInt(i)
         }
 
         /**
@@ -418,7 +418,7 @@ class Integers private constructor() {
          * `Int` value.
          * @since Java 1.5
          */
-        fun reverseBytes(i: Int): Int {
+        fun reverseBytesInt(i: Int): Int {
             return i shl 24 or
                     (i and 0xff00 shl 8) or
                     (i.ushr(8) and 0xff00) or
@@ -446,7 +446,7 @@ class Integers private constructor() {
          * specified number of bits.
          * @since Java 1.5
          */
-        fun rotateLeft(i: Long, distance: Int): Long {
+        fun rotateLeftLong(i: Long, distance: Int): Long {
             return i shl distance or i.ushr(-distance)
         }
 
@@ -471,7 +471,7 @@ class Integers private constructor() {
          * specified number of bits.
          * @since Java 1.5
          */
-        fun rotateRight(i: Long, distance: Int): Long {
+        fun rotateRightLong(i: Long, distance: Int): Long {
             return i.ushr(distance) or (i shl -distance)
         }
 
@@ -485,14 +485,14 @@ class Integers private constructor() {
          * specified `Long` value.
          * @since Java 1.5
          */
-        fun reverse(i: Long): Long {
+        fun reverseLong(i: Long): Long {
             var i = i
             // HD, Figure 7-1
             i = i and 0x5555555555555555L shl 1 or (i.ushr(1) and 0x5555555555555555L)
             i = i and 0x3333333333333333L shl 2 or (i.ushr(2) and 0x3333333333333333L)
             i = i and 0x0f0f0f0f0f0f0f0fL shl 4 or (i.ushr(4) and 0x0f0f0f0f0f0f0f0fL)
 
-            return reverseBytes(i)
+            return reverseBytesLong(i)
         }
 
         /**
@@ -504,7 +504,7 @@ class Integers private constructor() {
          * `Long` value.
          * @since Java 1.5
          */
-        fun reverseBytes(i: Long): Long {
+        fun reverseBytesLong(i: Long): Long {
             var i = i
             i = i and 0x00ff00ff00ff00ffL shl 8 or (i.ushr(8) and 0x00ff00ff00ff00ffL)
             return i shl 48 or (i and 0xffff0000L shl 16) or
