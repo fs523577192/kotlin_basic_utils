@@ -17,6 +17,7 @@ package org.firas.util
 
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
+import kotlin.js.JsName
 
 /**
  * Miscellaneous object utility methods.
@@ -49,6 +50,7 @@ abstract class ObjectUtils {
          * @param caseSensitive whether case is significant in determining a match
          * @return whether the constant has been found in the given array
          */
+        @JsName("containsConstant")
         fun containsConstant(enumValues: Array<Enum<*>>, constant: String, caseSensitive: Boolean = false): Boolean {
             for (candidate in enumValues) {
                 val compareResult = if (caseSensitive) candidate.toString() == constant
@@ -79,6 +81,7 @@ abstract class ObjectUtils {
  * @see .isEmpty
  */
 @ExperimentalContracts
+@JsName("Array_isNullOrEmpty")
 inline fun Array<*>?.isNullOrEmpty(): Boolean {
     contract {
         returns(false) implies (this@isNullOrEmpty != null)
@@ -94,6 +97,7 @@ inline fun Array<*>?.isNullOrEmpty(): Boolean {
  * @return whether the element has been found in the given array
  */
 @ExperimentalContracts
+@JsName("Array_contains")
 inline fun Array<*>?.contains(element: Any?): Boolean {
     contract {
         returns(true) implies (this@contains != null)

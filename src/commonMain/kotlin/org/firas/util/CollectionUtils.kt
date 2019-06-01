@@ -17,6 +17,7 @@ package org.firas.util
 
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
+import kotlin.js.JsName
 
 /**
  * Miscellaneous collection utility methods.
@@ -36,6 +37,7 @@ import kotlin.contracts.contract
  * @return whether the given Collection is empty
  */
 @ExperimentalContracts
+@JsName("Collection_isNullOrEmpty")
 inline fun Collection<*>?.isNullOrEmpty(): Boolean {
     contract {
         returns(false) implies (this@isNullOrEmpty != null)
@@ -50,6 +52,7 @@ inline fun Collection<*>?.isNullOrEmpty(): Boolean {
  * @return whether the given Map is empty
  */
 @ExperimentalContracts
+@JsName("Map_isNullOrEmpty")
 inline fun Map<*, *>.isNullOrEmpty(): Boolean {
     contract {
         returns(false) implies (this@isNullOrEmpty != null)
@@ -64,6 +67,7 @@ inline fun Map<*, *>.isNullOrEmpty(): Boolean {
  * @return `true` if found, `false` otherwise
  */
 @ExperimentalContracts
+@JsName("Iterator_contains")
 inline fun Iterator<*>?.contains(element: Any?): Boolean {
     contract {
         returns(true) implies (this@contains != null)
@@ -86,6 +90,7 @@ inline fun Iterator<*>?.contains(element: Any?): Boolean {
  * @return whether any of the candidates has been found
  */
 @ExperimentalContracts
+@JsName("Collection_containsAny")
 inline fun Collection<*>?.containsAny(candidates: Collection<*>?): Boolean {
     if (this.isNullOrEmpty() || candidates.isNullOrEmpty()) {
         return false

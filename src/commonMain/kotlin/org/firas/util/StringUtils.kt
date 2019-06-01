@@ -16,6 +16,7 @@
 package org.firas.util
 
 import org.firas.lang.Character
+import kotlin.js.JsName
 
 /**
  * Miscellaneous {@link String} utility methods.
@@ -62,6 +63,7 @@ abstract class StringUtils {
          * @see .hasLength
          * @see .hasText
          */
+        @JsName("isEmpty")
         fun isEmpty(str: Any?): Boolean {
             return str == null || "" == str
         }
@@ -86,26 +88,10 @@ abstract class StringUtils {
          * its length is greater than 0, and it does not contain whitespace only
          * @see .hasText
          * @see .hasLength
-         * @see Character.isWhitespaceCode
+         * @see Character.isWhitespace
          */
+        @JsName("hasText")
         fun hasText(str: CharSequence?): Boolean {
-            return !str.isNullOrEmpty() && containsText(str)
-        }
-
-        /**
-         * Check whether the given `String` contains actual *text*.
-         *
-         * More specifically, this method returns `true` if the
-         * `String` is not `null`, its length is greater than 0,
-         * and it contains at least one non-whitespace character.
-         * @param str the `String` to check (may be `null`)
-         * @return `true` if the `String` is not `null`, its
-         * length is greater than 0, and it does not contain whitespace only
-         * @see .hasText
-         * @see .hasLength
-         * @see Character.isWhitespaceCode
-         */
-        fun hasText(str: String?): Boolean {
             return !str.isNullOrEmpty() && containsText(str)
         }
 
@@ -114,8 +100,9 @@ abstract class StringUtils {
          * @param str the `CharSequence` to check (may be `null`)
          * @return `true` if the `CharSequence` is not empty and
          * contains at least 1 whitespace character
-         * @see Character.isWhitespaceCode
+         * @see Character.isWhitespace
          */
+        @JsName("containsWhitespace")
         fun containsWhitespace(str: CharSequence?): Boolean {
             if (str.isNullOrEmpty()) {
                 return false
@@ -123,7 +110,7 @@ abstract class StringUtils {
 
             val strLen = str.length
             for (i in 0 until strLen) {
-                if (Character.isWhitespaceChar(str[i])) {
+                if (Character.isWhitespace(str[i])) {
                     return true
                 }
             }
@@ -134,8 +121,9 @@ abstract class StringUtils {
          * Trim leading and trailing whitespace from the given `String`.
          * @param str the `String` to check
          * @return the trimmed `String`
-         * @see java.lang.Character.isWhitespace
+         * @see Character.isWhitespace
          */
+        @JsName("trimWhitespace")
         fun trimWhitespace(str: String): String {
             if (str.isEmpty()) {
                 return str
@@ -144,12 +132,12 @@ abstract class StringUtils {
             var beginIndex = 0
             var endIndex = str.length - 1
 
-            while (beginIndex <= endIndex && Character.isWhitespaceChar(str[beginIndex])) {
-                beginIndex++
+            while (beginIndex <= endIndex && Character.isWhitespace(str[beginIndex])) {
+                beginIndex += 1
             }
 
-            while (endIndex > beginIndex && Character.isWhitespaceChar(str[endIndex])) {
-                endIndex--
+            while (endIndex > beginIndex && Character.isWhitespace(str[endIndex])) {
+                endIndex -= 1
             }
 
             return str.substring(beginIndex, endIndex + 1)
@@ -160,8 +148,9 @@ abstract class StringUtils {
          * leading, trailing, and in between characters.
          * @param str the `String` to check
          * @return the trimmed `String`
-         * @see java.lang.Character.isWhitespace
+         * @see Character.isWhitespace
          */
+        @JsName("trimAllWhitespace")
         fun trimAllWhitespace(str: String): String {
             if (str.isEmpty()) {
                 return str
@@ -171,7 +160,7 @@ abstract class StringUtils {
             val sb = StringBuilder(str.length)
             for (i in 0 until len) {
                 val c = str[i]
-                if (!Character.isWhitespaceChar(c)) {
+                if (!Character.isWhitespace(c)) {
                     sb.append(c)
                 }
             }
@@ -183,8 +172,9 @@ abstract class StringUtils {
          * ignoring upper/lower case.
          * @param str the `String` to check
          * @param prefix the prefix to look for
-         * @see java.lang.String.startsWith
+         * @see String.startsWith
          */
+        @JsName("startsWithIgnoreCase")
         fun startsWithIgnoreCase(str: String?, prefix: String?): Boolean {
             return str != null && prefix != null && str.length >= prefix.length &&
                     str.regionMatches(0, prefix, 0, prefix.length, ignoreCase = true)
@@ -195,8 +185,9 @@ abstract class StringUtils {
          * ignoring upper/lower case.
          * @param str the `String` to check
          * @param suffix the suffix to look for
-         * @see java.lang.String.endsWith
+         * @see String.endsWith
          */
+        @JsName("endsWithIgnoreCase")
         fun endsWithIgnoreCase(str: String?, suffix: String?): Boolean {
             return str != null && suffix != null && str.length >= suffix.length &&
                     str.regionMatches(str.length - suffix.length, suffix, 0, suffix.length, ignoreCase = true)
@@ -209,6 +200,7 @@ abstract class StringUtils {
          * @param index the index in the original string to start matching against
          * @param substring the substring to match at the given index
          */
+        @JsName("substringMatch")
         fun substringMatch(str: CharSequence, index: Int, substring: CharSequence): Boolean {
             if (index + substring.length > str.length) {
                 return false
@@ -226,6 +218,7 @@ abstract class StringUtils {
          * @param str string to search in
          * @param sub string to search for
          */
+        @JsName("countOccurrencesOf")
         fun countOccurrencesOf(str: String, sub: String): Int {
             if (str.isEmpty() || sub.isEmpty()) {
                 return 0
@@ -251,6 +244,7 @@ abstract class StringUtils {
          * @param newPattern `String` to insert
          * @return a `String` with the replacements
          */
+        @JsName("replace")
         fun replace(inString: String, oldPattern: String, newPattern: String?): String {
             if (inString.isEmpty() || oldPattern.isEmpty() || newPattern == null) {
                 return inString
@@ -294,7 +288,7 @@ abstract class StringUtils {
         private fun containsText(str: CharSequence): Boolean {
             val strLen = str.length
             for (i in 0 until strLen) {
-                if (!Character.isWhitespaceChar(str[i])) {
+                if (!Character.isWhitespace(str[i])) {
                     return true
                 }
             }

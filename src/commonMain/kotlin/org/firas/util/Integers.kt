@@ -26,6 +26,8 @@
  */
 package org.firas.util
 
+import kotlin.js.JsName
+
 /**
  *
  * @author Wu Yuping
@@ -42,7 +44,8 @@ class Integers private constructor() {
          * @return the signum function of the specified `Int` value.
          * @since Java 1.5
          */
-        fun signumInt(i: Int): Int {
+        @JsName("signumInt")
+        fun signum(i: Int): Int {
             // HD, Section 2-7
             return i.shr(31) or (-i).ushr(31)
         }
@@ -56,7 +59,8 @@ class Integers private constructor() {
          * @return the signum function of the specified `Long` value.
          * @since Java 1.5
          */
-        fun signumLong(i: Long): Int {
+        @JsName("signumLong")
+        fun signum(i: Long): Int {
             // HD, Section 2-7
             return (i.shr(63) or (-i).ushr(63)).toInt()
         }
@@ -71,7 +75,8 @@ class Integers private constructor() {
          * representation of the specified `Int` value.
          * @since Java 1.5
          */
-        fun bitCountInt(i: Int): Int {
+        @JsName("bitCountInt")
+        fun bitCount(i: Int): Int {
             // HD, Figure 5-2
             var n = i - (i.ushr(1) and 0x55555555)
             n = (n and 0x33333333) + (n.ushr(2) and 0x33333333)
@@ -91,7 +96,8 @@ class Integers private constructor() {
          * representation of the specified `long` value.
          * @since 1.5
          */
-        fun bitCountLong(i: Long): Int {
+        @JsName("bitCountLong")
+        fun bitCount(i: Long): Int {
             // HD, Figure 5-2
             var n = i - (i.ushr(1) and 0x5555555555555555L)
             n = (n and 0x3333333333333333L) + (n.ushr(2) and 0x3333333333333333L)
@@ -115,7 +121,8 @@ class Integers private constructor() {
          * the specified value is itself equal to zero.
          * @since Java 1.5
          */
-        fun highestOneBitInt(i: Int): Int {
+        @JsName("highestOneBitInt")
+        fun highestOneBit(i: Int): Int {
             var n = i
             // HD, Figure 3-1
             n = n or (n shr 1)
@@ -139,7 +146,8 @@ class Integers private constructor() {
          * the specified value is itself equal to zero.
          * @since Java 1.5
          */
-        fun lowestOneBitInt(i: Int): Int {
+        @JsName("lowestOneBitInt")
+        fun lowestOneBit(i: Int): Int {
             // HD, Section 2-1
             return i and -i
         }
@@ -166,7 +174,8 @@ class Integers private constructor() {
          * is equal to zero.
          * @since Java 1.5
          */
-        fun numberOfLeadingZerosInt(i: Int): Int {
+        @JsName("numberOfLeadingZerosInt")
+        fun numberOfLeadingZeros(i: Int): Int {
             var i = i
             // HD, Figure 5-6
             if (i == 0) {
@@ -215,7 +224,8 @@ class Integers private constructor() {
          * is equal to zero.
          * @since 1.5
          */
-        fun numberOfLeadingZerosLong(i: Long): Int {
+        @JsName("numberOfLeadingZerosLong")
+        fun numberOfLeadingZeros(i: Long): Int {
             // HD, Figure 5-6
             if (i == 0L)
                 return 64
@@ -259,7 +269,8 @@ class Integers private constructor() {
          * to zero.
          * @since Java 1.5
          */
-        fun numberOfTrailingZerosLong(i: Long): Int {
+        @JsName("numberOfTrailingZerosLong")
+        fun numberOfTrailingZeros(i: Long): Int {
             // HD, Figure 5-14
             if (i == 0L) return 64
             var n = 63
@@ -306,7 +317,8 @@ class Integers private constructor() {
          *     to zero.
          * @since Java 1.5
          */
-        fun numberOfTrailingZerosInt(i: Int): Int {
+        @JsName("numberOfTrailingZerosInt")
+        fun numberOfTrailingZeros(i: Int): Int {
             var i = i
 
             // HD, Figure 5-14
@@ -360,7 +372,8 @@ class Integers private constructor() {
          * specified number of bits.
          * @since Java 1.5
          */
-        fun rotateLeftInt(i: Int, distance: Int): Int {
+        @JsName("rotateLeftInt")
+        fun rotateLeft(i: Int, distance: Int): Int {
             return i shl distance or i.ushr(-distance)
         }
 
@@ -385,7 +398,8 @@ class Integers private constructor() {
          * specified number of bits.
          * @since Java 1.5
          */
-        fun rotateRightInt(i: Int, distance: Int): Int {
+        @JsName("rotateRightInt")
+        fun rotateRight(i: Int, distance: Int): Int {
             return i.ushr(distance) or (i shl -distance)
         }
 
@@ -399,14 +413,15 @@ class Integers private constructor() {
          * specified `Int` value.
          * @since Java 1.5
          */
-        fun reverseInt(i: Int): Int {
+        @JsName("reverseInt")
+        fun reverse(i: Int): Int {
             var i = i
             // HD, Figure 7-1
             i = i and 0x55555555 shl 1 or (i.ushr(1) and 0x55555555)
             i = i and 0x33333333 shl 2 or (i.ushr(2) and 0x33333333)
             i = i and 0x0f0f0f0f shl 4 or (i.ushr(4) and 0x0f0f0f0f)
 
-            return reverseBytesInt(i)
+            return reverseBytes(i)
         }
 
         /**
@@ -418,7 +433,8 @@ class Integers private constructor() {
          * `Int` value.
          * @since Java 1.5
          */
-        fun reverseBytesInt(i: Int): Int {
+        @JsName("reverseBytesInt")
+        fun reverseBytes(i: Int): Int {
             return i shl 24 or
                     (i and 0xff00 shl 8) or
                     (i.ushr(8) and 0xff00) or
@@ -446,7 +462,8 @@ class Integers private constructor() {
          * specified number of bits.
          * @since Java 1.5
          */
-        fun rotateLeftLong(i: Long, distance: Int): Long {
+        @JsName("rotateLeftLong")
+        fun rotateLeft(i: Long, distance: Int): Long {
             return i shl distance or i.ushr(-distance)
         }
 
@@ -471,7 +488,8 @@ class Integers private constructor() {
          * specified number of bits.
          * @since Java 1.5
          */
-        fun rotateRightLong(i: Long, distance: Int): Long {
+        @JsName("rotateRightLong")
+        fun rotateRight(i: Long, distance: Int): Long {
             return i.ushr(distance) or (i shl -distance)
         }
 
@@ -485,14 +503,15 @@ class Integers private constructor() {
          * specified `Long` value.
          * @since Java 1.5
          */
-        fun reverseLong(i: Long): Long {
+        @JsName("reverseLong")
+        fun reverse(i: Long): Long {
             var i = i
             // HD, Figure 7-1
             i = i and 0x5555555555555555L shl 1 or (i.ushr(1) and 0x5555555555555555L)
             i = i and 0x3333333333333333L shl 2 or (i.ushr(2) and 0x3333333333333333L)
             i = i and 0x0f0f0f0f0f0f0f0fL shl 4 or (i.ushr(4) and 0x0f0f0f0f0f0f0f0fL)
 
-            return reverseBytesLong(i)
+            return reverseBytes(i)
         }
 
         /**
@@ -504,13 +523,15 @@ class Integers private constructor() {
          * `Long` value.
          * @since Java 1.5
          */
-        fun reverseBytesLong(i: Long): Long {
+        @JsName("reverseBytesLong")
+        fun reverseBytes(i: Long): Long {
             var i = i
             i = i and 0x00ff00ff00ff00ffL shl 8 or (i.ushr(8) and 0x00ff00ff00ff00ffL)
             return i shl 48 or (i and 0xffff0000L shl 16) or
                     (i.ushr(16) and 0xffff0000L) or i.ushr(48)
         }
 
+        @JsName("compare")
         fun compare(a: Long, b: Long): Int {
             return if (a > b) 1 else if (a < b) -1 else 0
         }

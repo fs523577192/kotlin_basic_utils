@@ -24,7 +24,10 @@
  */
 package org.firas.lang
 
-internal  fun checkOffset(offset:Int, length:Int) {
+import kotlin.js.JsName
+
+@JsName("StringBuilder_checkOffset")
+internal fun checkOffset(offset:Int, length:Int) {
     if (offset < 0 || offset > length) {
         throw StringIndexOutOfBoundsException("offset $offset, length $length")
     }
@@ -34,6 +37,7 @@ internal  fun checkOffset(offset:Int, length:Int) {
  * Supplement of kotlin.text.StringBuilder
  * @author Wu Yuping
  */
+@JsName("StringBuilder_setLength")
 fun StringBuilder.setLength(length: Int) {
     if (this.length < length) {
         for (i in 0 .. length - this.length) {
@@ -48,6 +52,7 @@ fun StringBuilder.setLength(length: Int) {
  * Supplement of kotlin.text.StringBuilder
  * @author Wu Yuping
  */
+@JsName("StringBuilder_insert")
 fun StringBuilder.insert(index: Int, charSequence: CharSequence): StringBuilder {
     checkOffset(index, this.length)
     val temp = this.subSequence(index, this.length)

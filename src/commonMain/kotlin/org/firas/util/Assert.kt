@@ -18,6 +18,7 @@ package org.firas.util
 import org.firas.lang.getName
 import org.firas.lang.isAssignableFrom
 import kotlin.contracts.ExperimentalContracts
+import kotlin.js.JsName
 import kotlin.reflect.KClass
 
 /**
@@ -81,6 +82,7 @@ abstract class Assert {
          * @param message the exception message to use if the assertion fails
          * @throws IllegalStateException if `expression` is `false`
          */
+        @JsName("state")
         fun state(expression: Boolean, message: String) {
             if (!expression) {
                 throw IllegalStateException(message)
@@ -95,7 +97,7 @@ abstract class Assert {
          * on an assertion failure.
          *
          * ```
-         * Assert.stateWithMessageSupplier(id == null) {"ID for " + entity.getName() + " must not already be initialized"}
+         * Assert.state(id == null) {"ID for " + entity.getName() + " must not already be initialized"}
          * ```
          *
          * @param expression a boolean expression
@@ -104,7 +106,8 @@ abstract class Assert {
          * @throws IllegalStateException if `expression` is `false`
          * @since Spring Framework 5.0
          */
-        fun stateWithMessageSupplier(expression: Boolean, messageSupplier: (() -> String)?) {
+        @JsName("stateWithMessageSupplier")
+        fun state(expression: Boolean, messageSupplier: (() -> String)?) {
             if (!expression) {
                 throw IllegalStateException(messageSupplier?.invoke())
             }
@@ -122,6 +125,7 @@ abstract class Assert {
          * @param message the exception message to use if the assertion fails
          * @throws IllegalArgumentException if `expression` is `false`
          */
+        @JsName("isTrue")
         fun isTrue(expression: Boolean, message: String) {
             if (!expression) {
                 throw IllegalArgumentException(message)
@@ -133,7 +137,7 @@ abstract class Assert {
          * if the expression evaluates to `false`.
          *
          * ```
-         * Assert.isTrueWithMessageSupplier(i > 0) {"The value '$i' must be greater than zero")
+         * Assert.isTrue(i > 0) {"The value '$i' must be greater than zero")
          * ```
          *
          * @param expression a boolean expression
@@ -142,7 +146,8 @@ abstract class Assert {
          * @throws IllegalArgumentException if `expression` is `false`
          * @since Spring Framework 5.0
          */
-        fun isTrueWithMessageSupplier(expression: Boolean, messageSupplier: (() -> String)?) {
+        @JsName("isTrueWithMessageSupplier")
+        fun isTrue(expression: Boolean, messageSupplier: (() -> String)?) {
             if (!expression) {
                 throw IllegalArgumentException(messageSupplier?.invoke())
             }
@@ -159,6 +164,7 @@ abstract class Assert {
          * @param message the exception message to use if the assertion fails
          * @throws IllegalArgumentException if the object is not `null`
          */
+        @JsName("isNull")
         fun isNull(nullable: Any?, message: String) {
             if (nullable != null) {
                 throw IllegalArgumentException(message)
@@ -169,7 +175,7 @@ abstract class Assert {
          * Assert that an object is `null`.
          *
          * ```
-         * Assert.isNullWithMessageSupplier(value) {"The value '$value' must be null"}
+         * Assert.isNull(value) {"The value '$value' must be null"}
          * ```
          *
          * @param nullable the object to check
@@ -178,7 +184,8 @@ abstract class Assert {
          * @throws IllegalArgumentException if the object is not `null`
          * @since Spring Framework 5.0
          */
-        fun isNullWithMessageSupplier(nullable: Any?, messageSupplier: (() -> String)?) {
+        @JsName("isNullWithMessageSupplier")
+        fun isNull(nullable: Any?, messageSupplier: (() -> String)?) {
             if (nullable != null) {
                 throw IllegalArgumentException(messageSupplier?.invoke())
             }
@@ -195,6 +202,7 @@ abstract class Assert {
          * @param message the exception message to use if the assertion fails
          * @throws IllegalArgumentException if the object is `null`
          */
+        @JsName("notNull")
         fun notNull(nullable: Any?, message: String) {
             if (nullable == null) {
                 throw IllegalArgumentException(message)
@@ -205,7 +213,7 @@ abstract class Assert {
          * Assert that an object is not `null`.
          *
          * ```
-         * Assert.notNullWithMessageSupplier(clazz) {"The class '" + clazz.getName() + "' must not be null"}
+         * Assert.notNull(clazz) {"The class '" + clazz.getName() + "' must not be null"}
          * ```
          *
          * @param nullable the object to check
@@ -214,7 +222,8 @@ abstract class Assert {
          * @throws IllegalArgumentException if the object is `null`
          * @since Spring Framework 5.0
          */
-        fun notNullWithMessageSupplier(nullable: Any?, messageSupplier: (() -> String)?) {
+        @JsName("notNullWithMessageSupplier")
+        fun notNull(nullable: Any?, messageSupplier: (() -> String)?) {
             if (nullable == null) {
                 throw IllegalArgumentException(messageSupplier?.invoke())
             }
@@ -233,6 +242,7 @@ abstract class Assert {
          * @throws IllegalArgumentException if the text is empty
          * @see StringUtils.hasLength
          */
+        @JsName("hasLength")
         fun hasLength(text: String?, message: String) {
             if (text.isNullOrEmpty()) {
                 throw IllegalArgumentException(message)
@@ -244,7 +254,7 @@ abstract class Assert {
          * it must not be `null` and not the empty String.
          *
          * ```
-         * Assert.hasLengthWithMessageSupplier(name) {"Name for account '" + account.getId() + "' must not be empty"}
+         * Assert.hasLength(name) {"Name for account '" + account.getId() + "' must not be empty"}
          * ```
          *
          * @param text the String to check
@@ -254,7 +264,8 @@ abstract class Assert {
          * @since Spring Framework 5.0
          * @see StringUtils.hasLength
          */
-        fun hasLengthWithMessageSupplier(text: String?, messageSupplier: (() -> String)?) {
+        @JsName("hasLengthWithMessageSupplier")
+        fun hasLength(text: String?, messageSupplier: (() -> String)?) {
             if (text.isNullOrEmpty()) {
                 throw IllegalArgumentException(messageSupplier?.invoke())
             }
@@ -273,6 +284,7 @@ abstract class Assert {
          * @throws IllegalArgumentException if the text does not contain valid text content
          * @see StringUtils.hasText
          */
+        @JsName("hasText")
         fun hasText(text: String?, message: String) {
             if (!StringUtils.hasText(text)) {
                 throw IllegalArgumentException(message)
@@ -284,7 +296,7 @@ abstract class Assert {
          * be `null` and must contain at least one non-whitespace character.
          *
          * ```
-         * Assert.hasTextWithMessageSupplier(name) {"Name for account '" + account.getId() + "' must not be empty"}
+         * Assert.hasText(name) {"Name for account '" + account.getId() + "' must not be empty"}
          * ```
          *
          * @param text the String to check
@@ -294,7 +306,8 @@ abstract class Assert {
          * @since Spring Framework 5.0
          * @see StringUtils.hasText
          */
-        fun hasTextWithMessageSupplier(text: String?, messageSupplier: (() -> String)?) {
+        @JsName("hasTextWithMessageSupplier")
+        fun hasText(text: String?, messageSupplier: (() -> String)?) {
             if (!StringUtils.hasText(text)) {
                 throw IllegalArgumentException(messageSupplier?.invoke())
             }
@@ -312,6 +325,7 @@ abstract class Assert {
          * @param message the exception message to use if the assertion fails
          * @throws IllegalArgumentException if the text contains the substring
          */
+        @JsName("doesNotContain")
         fun doesNotContain(textToSearch: String?, substring: String, message: String) {
             if (!textToSearch.isNullOrEmpty() && substring.isNotEmpty() &&
                 textToSearch.contains(substring)
@@ -324,7 +338,7 @@ abstract class Assert {
          * Assert that the given text does not contain the given substring.
          *
          * ```
-         * Assert.doesNotContainWithMessageSupplier(name, forbidden) {"Name must not contain '$forbidden'"}
+         * Assert.doesNotContain(name, forbidden) {"Name must not contain '$forbidden'"}
          * ```
          *
          * @param textToSearch the text to search
@@ -334,7 +348,8 @@ abstract class Assert {
          * @throws IllegalArgumentException if the text contains the substring
          * @since Spring Framework 5.0
          */
-        fun doesNotContainWithMessageSupplier(textToSearch: String?, substring: String, messageSupplier: (() -> String)?) {
+        @JsName("doesNotContainWithMessageSupplier")
+        fun doesNotContain(textToSearch: String?, substring: String, messageSupplier: (() -> String)?) {
             if (!textToSearch.isNullOrEmpty() && substring.isNotEmpty() &&
                 textToSearch.contains(substring)
             ) {
@@ -347,14 +362,15 @@ abstract class Assert {
          * `null` and must contain at least one element.
          *
          * ```
-         * Assert.arrayNotEmpty(array, "The array must contain elements")
+         * Assert.notEmpty(array, "The array must contain elements")
          * ```
          *
          * @param array the array to check
          * @param message the exception message to use if the assertion fails
          * @throws IllegalArgumentException if the object array is `null` or contains no elements
          */
-        fun arrayNotEmpty(array: Array<*>?, message: String) {
+        @JsName("arrayNotEmpty")
+        fun notEmpty(array: Array<*>?, message: String) {
             if (array.isNullOrEmpty()) {
                 throw IllegalArgumentException(message)
             }
@@ -365,7 +381,7 @@ abstract class Assert {
          * `null` and must contain at least one element.
          *
          * ```
-         * Assert.arrayNotEmptyWithMessageSupplier(array) {"The $arrayType array must contain elements"}
+         * Assert.notEmpty(array) {"The $arrayType array must contain elements"}
          * ```
          *
          * @param array the array to check
@@ -374,7 +390,8 @@ abstract class Assert {
          * @throws IllegalArgumentException if the object array is `null` or contains no elements
          * @since Spring Framework 5.0
          */
-        fun arrayNotEmptyWithMessageSupplier(array: Array<*>?, messageSupplier: (() -> String)?) {
+        @JsName("arrayNotEmptyWithMessageSupplier")
+        fun notEmpty(array: Array<*>?, messageSupplier: (() -> String)?) {
             if (array.isNullOrEmpty()) {
                 throw IllegalArgumentException(messageSupplier?.invoke())
             }
@@ -393,6 +410,7 @@ abstract class Assert {
          * @param message the exception message to use if the assertion fails
          * @throws IllegalArgumentException if the object array contains a `null` element
          */
+        @JsName("noNullElements")
         fun noNullElements(array: Array<*>?, message: String) {
             if (array != null) {
                 for (element in array) {
@@ -409,7 +427,7 @@ abstract class Assert {
          * Note: Does not complain if the array is empty!
          *
          * ```
-         * Assert.noNullElementsWithMessageSupplier(array) {"The $arrayType array must contain non-null elements"}
+         * Assert.noNullElements(array) {"The $arrayType array must contain non-null elements"}
          * ```
          *
          * @param array the array to check
@@ -418,7 +436,8 @@ abstract class Assert {
          * @throws IllegalArgumentException if the object array contains a `null` element
          * @since Spring Framework 5.0
          */
-        fun noNullElementsWithMessageSupplier(array: Array<*>?, messageSupplier: (() -> String)?) {
+        @JsName("noNullElementsWithMessageSupplier")
+        fun noNullElements(array: Array<*>?, messageSupplier: (() -> String)?) {
             if (array != null) {
                 for (element in array) {
                     if (element == null) {
@@ -433,7 +452,7 @@ abstract class Assert {
          * `null` and must contain at least one element.
          *
          * ```
-         * Assert.collectionNotEmpty(collection, "Collection must contain elements")
+         * Assert.notEmpty(collection, "Collection must contain elements")
          * ```
          *
          * @param collection the collection to check
@@ -441,7 +460,8 @@ abstract class Assert {
          * @throws IllegalArgumentException if the collection is `null` or
          * contains no elements
          */
-        fun collectionNotEmpty(collection: Collection<*>?, message: String) {
+        @JsName("collectionNotEmpty")
+        fun notEmpty(collection: Collection<*>?, message: String) {
             if (collection.isNullOrEmpty()) {
                 throw IllegalArgumentException(message)
             }
@@ -452,7 +472,7 @@ abstract class Assert {
          * `null` and must contain at least one element.
          *
          * ```
-         * Assert.collectionNotEmptyWithMessageSupplier(collection) {"The $collectionType collection must contain elements"}
+         * Assert.notEmpty(collection) {"The $collectionType collection must contain elements"}
          * ```
          *
          * @param collection the collection to check
@@ -462,7 +482,8 @@ abstract class Assert {
          * contains no elements
          * @since Spring Framework 5.0
          */
-        fun collectionNotEmptyWithMessageSupplier(collection: Collection<*>?, messageSupplier: (() -> String)?) {
+        @JsName("collectionNotEmptyWithMessageSupplier")
+        fun notEmpty(collection: Collection<*>?, messageSupplier: (() -> String)?) {
             if (collection.isNullOrEmpty()) {
                 throw IllegalArgumentException(messageSupplier?.invoke())
             }
@@ -483,6 +504,7 @@ abstract class Assert {
          * of the offending object's type will be appended.
          * @throws IllegalArgumentException if the object is not an instance of type
          */
+        @JsName("isInstanceOf")
         fun isInstanceOf(type: KClass<*>, obj: Any, message: String) {
             notNull(type, "Type to check against must not be null")
             if (!type.isInstance(obj)) {
@@ -493,7 +515,7 @@ abstract class Assert {
         /**
          * Assert that the provided object is an instance of the provided class.
          * ```
-         * Assert.instanceOfWithMessageSupplier(Foo.class, foo, () -&gt; "Processing " + Foo.class.getSimpleName() + ":");
+         * Assert.instanceOf(Foo.class, foo, () -&gt; "Processing " + Foo.class.getSimpleName() + ":");
          * ```
          *
          * @param type the type to check against
@@ -503,7 +525,8 @@ abstract class Assert {
          * @throws IllegalArgumentException if the object is not an instance of type
          * @since 5.0
          */
-        fun isInstanceOfWithMessageSupplier(type: KClass<*>, obj: Any, messageSupplier: (() -> String)?) {
+        @JsName("isInstanceOfWithMessageSupplier")
+        fun isInstanceOf(type: KClass<*>, obj: Any, messageSupplier: (() -> String)?) {
             notNull(type, "Type to check against must not be null")
             if (!type.isInstance(obj)) {
                 instanceCheckFailed(type, obj, messageSupplier?.invoke())
@@ -525,6 +548,7 @@ abstract class Assert {
          * offending sub type will be appended.
          * @throws IllegalArgumentException if the classes are not assignable
          */
+        @JsName("isAssignable")
         fun isAssignable(superType: KClass<*>, subType: KClass<*>?, message: String) {
             notNull(superType, "Super type to check against must not be null")
             if (subType == null || !superType.isAssignableFrom(subType)) {
@@ -535,7 +559,7 @@ abstract class Assert {
         /**
          * Assert that `superType.isAssignableFrom(subType)` is `true`.
          * ```
-         * Assert.isAssignableWithMessageSupplier(Number.class, myClass, () -&gt; "Processing " + myAttributeName + ":");
+         * Assert.isAssignable(Number.class, myClass, () -&gt; "Processing " + myAttributeName + ":");
          * ```
          *
          * @param superType the super type to check against
@@ -545,7 +569,8 @@ abstract class Assert {
          * @throws IllegalArgumentException if the classes are not assignable
          * @since 5.0
          */
-        fun isAssignableWithMessageSupplier(superType: KClass<*>, subType: KClass<*>?, messageSupplier: (() -> String)?) {
+        @JsName("isAssignableWithMessageSupplier")
+        fun isAssignable(superType: KClass<*>, subType: KClass<*>?, messageSupplier: (() -> String)?) {
             notNull(superType, "Super type to check against must not be null")
             if (subType == null || !superType.isAssignableFrom(subType)) {
                 assignableCheckFailed(superType, subType, messageSupplier?.invoke())
