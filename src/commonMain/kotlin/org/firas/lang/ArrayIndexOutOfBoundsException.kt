@@ -24,6 +24,8 @@
  */
 package org.firas.lang
 
+import kotlin.js.JsName
+
 /**
  * Thrown to indicate that an array has been accessed with an illegal index. The
  * index is either negative or greater than or equal to the size of the array.
@@ -37,6 +39,7 @@ class ArrayIndexOutOfBoundsException: IndexOutOfBoundsException {
      * Constructs an `ArrayIndexOutOfBoundsException` with no detail
      * message.
      */
+    @JsName("ArrayIndexOutOfBoundsException_init")
     constructor(): super()
 
     /**
@@ -45,6 +48,7 @@ class ArrayIndexOutOfBoundsException: IndexOutOfBoundsException {
      *
      * @param s the detail message.
      */
+    @JsName("ArrayIndexOutOfBoundsException_initWithMessage")
     constructor(s: String): super(s)
 
     /**
@@ -57,6 +61,7 @@ class ArrayIndexOutOfBoundsException: IndexOutOfBoundsException {
      *
      * @param index the illegal index.
      */
+    @JsName("ArrayIndexOutOfBoundsException_initWithIndex")
     constructor(index: Int): super("Array index out of range: $index")
 
     companion object {

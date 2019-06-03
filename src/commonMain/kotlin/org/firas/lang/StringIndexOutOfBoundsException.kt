@@ -24,6 +24,8 @@
  */
 package org.firas.lang
 
+import kotlin.js.JsName
+
 /**
  * Thrown by `String` methods to indicate that an index is either negative
  * or greater than the size of the string.  For some methods such as the
@@ -35,6 +37,7 @@ package org.firas.lang
  */
 class StringIndexOutOfBoundsException: IndexOutOfBoundsException {
 
+    @JsName("StringIndexOutOfBoundsException_init")
     constructor(): super()
 
     /**
@@ -43,6 +46,7 @@ class StringIndexOutOfBoundsException: IndexOutOfBoundsException {
      *
      * @param message the detail message.
      */
+    @JsName("StringIndexOutOfBoundsException_initWithMessage")
     constructor(message: String): super(message)
 
     /**
@@ -54,5 +58,6 @@ class StringIndexOutOfBoundsException: IndexOutOfBoundsException {
      *
      * @param index the illegal index.
      */
+    @JsName("StringIndexOutOfBoundsException_initWithIndex")
     constructor(index: Int): super("String index out of range: $index")
 }
