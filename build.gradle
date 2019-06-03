@@ -59,4 +59,5 @@ kotlin {
             }
         }
     }
+    compileKotlinJs.kotlinOptions.moduleKind = 'umd'
 }
