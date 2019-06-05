@@ -25,6 +25,7 @@
 package org.firas.lang
 
 import kotlin.js.JsName
+import kotlin.jvm.JvmStatic
 
 /**
  * Thrown to indicate that an array has been accessed with an illegal index. The

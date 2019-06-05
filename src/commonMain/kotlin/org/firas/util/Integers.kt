@@ -27,6 +27,7 @@
 package org.firas.util
 
 import kotlin.js.JsName
+import kotlin.jvm.JvmStatic
 
 /**
  *
@@ -45,6 +46,7 @@ class Integers private constructor() {
          * @since Java 1.5
          */
         @JsName("signumInt")
+        @JvmStatic
         fun signum(i: Int): Int {
             // HD, Section 2-7
             return i.shr(31) or (-i).ushr(31)
@@ -60,6 +62,7 @@ class Integers private constructor() {
          * @since Java 1.5
          */
         @JsName("signumLong")
+        @JvmStatic
         fun signum(i: Long): Int {
             // HD, Section 2-7
             return (i.shr(63) or (-i).ushr(63)).toInt()
@@ -76,6 +79,7 @@ class Integers private constructor() {
          * @since Java 1.5
          */
         @JsName("bitCountInt")
+        @JvmStatic
         fun bitCount(i: Int): Int {
             // HD, Figure 5-2
             var n = i - (i.ushr(1) and 0x55555555)
@@ -97,6 +101,7 @@ class Integers private constructor() {
          * @since 1.5
          */
         @JsName("bitCountLong")
+        @JvmStatic
         fun bitCount(i: Long): Int {
             // HD, Figure 5-2
             var n = i - (i.ushr(1) and 0x5555555555555555L)
@@ -122,6 +127,7 @@ class Integers private constructor() {
          * @since Java 1.5
          */
         @JsName("highestOneBitInt")
+        @JvmStatic
         fun highestOneBit(i: Int): Int {
             var n = i
             // HD, Figure 3-1
@@ -147,6 +153,7 @@ class Integers private constructor() {
          * @since Java 1.5
          */
         @JsName("lowestOneBitInt")
+        @JvmStatic
         fun lowestOneBit(i: Int): Int {
             // HD, Section 2-1
             return i and -i
@@ -175,6 +182,7 @@ class Integers private constructor() {
          * @since Java 1.5
          */
         @JsName("numberOfLeadingZerosInt")
+        @JvmStatic
         fun numberOfLeadingZeros(i: Int): Int {
             var i = i
             // HD, Figure 5-6
@@ -222,9 +230,10 @@ class Integers private constructor() {
          * ("leftmost") one-bit in the two's complement binary representation
          * of the specified `Long` value, or 64 if the value
          * is equal to zero.
-         * @since 1.5
+         * @since Java 1.5
          */
         @JsName("numberOfLeadingZerosLong")
+        @JvmStatic
         fun numberOfLeadingZeros(i: Long): Int {
             // HD, Figure 5-6
             if (i == 0L)
@@ -270,6 +279,7 @@ class Integers private constructor() {
          * @since Java 1.5
          */
         @JsName("numberOfTrailingZerosLong")
+        @JvmStatic
         fun numberOfTrailingZeros(i: Long): Int {
             // HD, Figure 5-14
             if (i == 0L) return 64
@@ -318,6 +328,7 @@ class Integers private constructor() {
          * @since Java 1.5
          */
         @JsName("numberOfTrailingZerosInt")
+        @JvmStatic
         fun numberOfTrailingZeros(i: Int): Int {
             var i = i
 
@@ -373,6 +384,7 @@ class Integers private constructor() {
          * @since Java 1.5
          */
         @JsName("rotateLeftInt")
+        @JvmStatic
         fun rotateLeft(i: Int, distance: Int): Int {
             return i shl distance or i.ushr(-distance)
         }
@@ -399,6 +411,7 @@ class Integers private constructor() {
          * @since Java 1.5
          */
         @JsName("rotateRightInt")
+        @JvmStatic
         fun rotateRight(i: Int, distance: Int): Int {
             return i.ushr(distance) or (i shl -distance)
         }
@@ -414,6 +427,7 @@ class Integers private constructor() {
          * @since Java 1.5
          */
         @JsName("reverseInt")
+        @JvmStatic
         fun reverse(i: Int): Int {
             var i = i
             // HD, Figure 7-1
@@ -434,6 +448,7 @@ class Integers private constructor() {
          * @since Java 1.5
          */
         @JsName("reverseBytesInt")
+        @JvmStatic
         fun reverseBytes(i: Int): Int {
             return i shl 24 or
                     (i and 0xff00 shl 8) or
@@ -463,6 +478,7 @@ class Integers private constructor() {
          * @since Java 1.5
          */
         @JsName("rotateLeftLong")
+        @JvmStatic
         fun rotateLeft(i: Long, distance: Int): Long {
             return i shl distance or i.ushr(-distance)
         }
@@ -489,6 +505,7 @@ class Integers private constructor() {
          * @since Java 1.5
          */
         @JsName("rotateRightLong")
+        @JvmStatic
         fun rotateRight(i: Long, distance: Int): Long {
             return i.ushr(distance) or (i shl -distance)
         }
@@ -504,6 +521,7 @@ class Integers private constructor() {
          * @since Java 1.5
          */
         @JsName("reverseLong")
+        @JvmStatic
         fun reverse(i: Long): Long {
             var i = i
             // HD, Figure 7-1
@@ -524,6 +542,7 @@ class Integers private constructor() {
          * @since Java 1.5
          */
         @JsName("reverseBytesLong")
+        @JvmStatic
         fun reverseBytes(i: Long): Long {
             var i = i
             i = i and 0x00ff00ff00ff00ffL shl 8 or (i.ushr(8) and 0x00ff00ff00ff00ffL)
@@ -532,6 +551,7 @@ class Integers private constructor() {
         }
 
         @JsName("compare")
+        @JvmStatic
         fun compare(a: Long, b: Long): Int {
             return if (a > b) 1 else if (a < b) -1 else 0
         }

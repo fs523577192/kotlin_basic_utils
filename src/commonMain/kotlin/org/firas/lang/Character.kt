@@ -27,6 +27,7 @@
 package org.firas.lang
 
 import kotlin.js.JsName
+import kotlin.jvm.JvmStatic
 
 /**
  *
@@ -46,6 +47,7 @@ class Character {
          * @see Int.toString
          * @see String.toInt
          */
+        @JvmStatic
         val MIN_RADIX = 2
 
         /**
@@ -60,32 +62,36 @@ class Character {
          * @see Int.toString
          * @see String.toInt
          */
+        @JvmStatic
         val MAX_RADIX = 36
 
         /**
          * Determines if the specified character is a digit.
-         * <p>
+         *
+         *
          * A character is a digit if its general category type, provided
          * by {@code Character.getType(ch)}, is
          * `DECIMAL_DIGIT_NUMBER`.
-         * <p>
+         *
+         *
          * Some Unicode character ranges that contain digits:
-         * <ul>
-         * <li>{@code '\u005Cu0030'} through {@code '\u005Cu0039'},
+         *
+         * * {@code '\u005Cu0030'} through {@code '\u005Cu0039'},
          *     ISO-LATIN-1 digits ({@code '0'} through {@code '9'})
-         * <li>{@code '\u005Cu0660'} through {@code '\u005Cu0669'},
+         * * {@code '\u005Cu0660'} through {@code '\u005Cu0669'},
          *     Arabic-Indic digits
-         * <li>{@code '\u005Cu06F0'} through {@code '\u005Cu06F9'},
+         * * {@code '\u005Cu06F0'} through {@code '\u005Cu06F9'},
          *     Extended Arabic-Indic digits
-         * <li>{@code '\u005Cu0966'} through {@code '\u005Cu096F'},
+         * * {@code '\u005Cu0966'} through {@code '\u005Cu096F'},
          *     Devanagari digits
-         * <li>{@code '\u005CuFF10'} through {@code '\u005CuFF19'},
+         * * {@code '\u005CuFF10'} through {@code '\u005CuFF19'},
          *     Fullwidth digits
-         * </ul>
+         *
          *
          * Many other character ranges contain digits as well.
          *
-         * <p><b>Note:</b> This method cannot handle <a
+         *
+         * <b>Note:</b> This method cannot handle <a
          * href="#supplementary"> supplementary characters</a>. To support
          * all Unicode characters, including supplementary characters, use
          * the {@link #isDigit(int)} method.
@@ -98,30 +104,33 @@ class Character {
          * @see     Character#getType(char)
          */
         @JsName("isDigitChar")
+        @JvmStatic
         fun isDigit(ch: Char): Boolean {
             return isDigit(ch.toInt())
         }
 
         /**
          * Determines if the specified character (Unicode code point) is a digit.
-         * <p>
+         *
+         *
          * A character is a digit if its general category type, provided
          * by {@link Character#getType(int) getType(codePoint)}, is
          * `DECIMAL_DIGIT_NUMBER`.
-         * <p>
+         *
+         *
          * Some Unicode character ranges that contain digits:
-         * <ul>
-         * <li>{@code '\u005Cu0030'} through {@code '\u005Cu0039'},
+         *
+         * * {@code '\u005Cu0030'} through {@code '\u005Cu0039'},
          *     ISO-LATIN-1 digits ({@code '0'} through {@code '9'})
-         * <li>{@code '\u005Cu0660'} through {@code '\u005Cu0669'},
+         * * {@code '\u005Cu0660'} through {@code '\u005Cu0669'},
          *     Arabic-Indic digits
-         * <li>{@code '\u005Cu06F0'} through {@code '\u005Cu06F9'},
+         * * {@code '\u005Cu06F0'} through {@code '\u005Cu06F9'},
          *     Extended Arabic-Indic digits
-         * <li>{@code '\u005Cu0966'} through {@code '\u005Cu096F'},
+         * * {@code '\u005Cu0966'} through {@code '\u005Cu096F'},
          *     Devanagari digits
-         * <li>{@code '\u005CuFF10'} through {@code '\u005CuFF19'},
+         * * {@code '\u005CuFF10'} through {@code '\u005CuFF19'},
          *     Fullwidth digits
-         * </ul>
+         *
          *
          * Many other character ranges contain digits as well.
          *
@@ -133,6 +142,7 @@ class Character {
          * @since   Java 1.5
          */
         @JsName("isDigitCode")
+        @JvmStatic
         fun isDigit(codePoint: Int): Boolean {
             return codePoint in '0'.toInt()..'9'.toInt() || codePoint in '０'.toInt()..'９'.toInt()
                     || codePoint in 0x660..0x669 || codePoint in 0x6F0..0x6F9 || codePoint in 0x966..0x96F
@@ -170,6 +180,7 @@ class Character {
          * @since  OpenJDK 1.1
          */
         @JsName("isWhitespaceChar")
+        @JvmStatic
         fun isWhitespace(ch: Char): Boolean {
             return isWhitespace(ch.toInt())
         }
@@ -202,6 +213,7 @@ class Character {
          * @since  OpenJDK 1.5
          */
         @JsName("isWhitespaceCode")
+        @JvmStatic
         fun isWhitespace(codePoint: Int): Boolean {
             return codePoint == ' '.toInt() || codePoint == '\t'.toInt()
                     || codePoint == '\n'.toInt() || codePoint == '\r'.toInt()
@@ -262,6 +274,7 @@ class Character {
          * @author Wu Yuping
          */
         @JsName("digit")
+        @JvmStatic
         fun digit(ch: Char, radix: Int): Int {
             if (radix < MIN_RADIX || radix > MAX_RADIX) {
                 throw IllegalArgumentException("Invalid radix: $radix")
@@ -289,6 +302,7 @@ class Character {
          * @author Wu Yuping
          */
         @JsName("stringToCharArray")
+        @JvmStatic
         fun stringToCharArray(str: String): CharArray {
             return str.toList().toCharArray()
         }

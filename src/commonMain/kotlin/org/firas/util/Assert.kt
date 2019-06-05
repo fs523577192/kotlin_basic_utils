@@ -19,6 +19,7 @@ import org.firas.lang.getName
 import org.firas.lang.isAssignableFrom
 import kotlin.contracts.ExperimentalContracts
 import kotlin.js.JsName
+import kotlin.jvm.JvmStatic
 import kotlin.reflect.KClass
 
 /**
@@ -83,6 +84,7 @@ abstract class Assert {
          * @throws IllegalStateException if `expression` is `false`
          */
         @JsName("state")
+        @JvmStatic
         fun state(expression: Boolean, message: String) {
             if (!expression) {
                 throw IllegalStateException(message)
@@ -107,6 +109,7 @@ abstract class Assert {
          * @since Spring Framework 5.0
          */
         @JsName("stateWithMessageSupplier")
+        @JvmStatic
         fun state(expression: Boolean, messageSupplier: (() -> String)?) {
             if (!expression) {
                 throw IllegalStateException(messageSupplier?.invoke())
@@ -126,6 +129,7 @@ abstract class Assert {
          * @throws IllegalArgumentException if `expression` is `false`
          */
         @JsName("isTrue")
+        @JvmStatic
         fun isTrue(expression: Boolean, message: String) {
             if (!expression) {
                 throw IllegalArgumentException(message)
@@ -147,6 +151,7 @@ abstract class Assert {
          * @since Spring Framework 5.0
          */
         @JsName("isTrueWithMessageSupplier")
+        @JvmStatic
         fun isTrue(expression: Boolean, messageSupplier: (() -> String)?) {
             if (!expression) {
                 throw IllegalArgumentException(messageSupplier?.invoke())
@@ -165,6 +170,7 @@ abstract class Assert {
          * @throws IllegalArgumentException if the object is not `null`
          */
         @JsName("isNull")
+        @JvmStatic
         fun isNull(nullable: Any?, message: String) {
             if (nullable != null) {
                 throw IllegalArgumentException(message)
@@ -185,6 +191,7 @@ abstract class Assert {
          * @since Spring Framework 5.0
          */
         @JsName("isNullWithMessageSupplier")
+        @JvmStatic
         fun isNull(nullable: Any?, messageSupplier: (() -> String)?) {
             if (nullable != null) {
                 throw IllegalArgumentException(messageSupplier?.invoke())
@@ -203,6 +210,7 @@ abstract class Assert {
          * @throws IllegalArgumentException if the object is `null`
          */
         @JsName("notNull")
+        @JvmStatic
         fun notNull(nullable: Any?, message: String) {
             if (nullable == null) {
                 throw IllegalArgumentException(message)
@@ -223,6 +231,7 @@ abstract class Assert {
          * @since Spring Framework 5.0
          */
         @JsName("notNullWithMessageSupplier")
+        @JvmStatic
         fun notNull(nullable: Any?, messageSupplier: (() -> String)?) {
             if (nullable == null) {
                 throw IllegalArgumentException(messageSupplier?.invoke())
@@ -243,6 +252,7 @@ abstract class Assert {
          * @see StringUtils.hasLength
          */
         @JsName("hasLength")
+        @JvmStatic
         fun hasLength(text: String?, message: String) {
             if (text.isNullOrEmpty()) {
                 throw IllegalArgumentException(message)
@@ -265,6 +275,7 @@ abstract class Assert {
          * @see StringUtils.hasLength
          */
         @JsName("hasLengthWithMessageSupplier")
+        @JvmStatic
         fun hasLength(text: String?, messageSupplier: (() -> String)?) {
             if (text.isNullOrEmpty()) {
                 throw IllegalArgumentException(messageSupplier?.invoke())
@@ -285,6 +296,7 @@ abstract class Assert {
          * @see StringUtils.hasText
          */
         @JsName("hasText")
+        @JvmStatic
         fun hasText(text: String?, message: String) {
             if (!StringUtils.hasText(text)) {
                 throw IllegalArgumentException(message)
@@ -307,6 +319,7 @@ abstract class Assert {
          * @see StringUtils.hasText
          */
         @JsName("hasTextWithMessageSupplier")
+        @JvmStatic
         fun hasText(text: String?, messageSupplier: (() -> String)?) {
             if (!StringUtils.hasText(text)) {
                 throw IllegalArgumentException(messageSupplier?.invoke())
@@ -326,6 +339,7 @@ abstract class Assert {
          * @throws IllegalArgumentException if the text contains the substring
          */
         @JsName("doesNotContain")
+        @JvmStatic
         fun doesNotContain(textToSearch: String?, substring: String, message: String) {
             if (!textToSearch.isNullOrEmpty() && substring.isNotEmpty() &&
                 textToSearch.contains(substring)
@@ -349,6 +363,7 @@ abstract class Assert {
          * @since Spring Framework 5.0
          */
         @JsName("doesNotContainWithMessageSupplier")
+        @JvmStatic
         fun doesNotContain(textToSearch: String?, substring: String, messageSupplier: (() -> String)?) {
             if (!textToSearch.isNullOrEmpty() && substring.isNotEmpty() &&
                 textToSearch.contains(substring)
@@ -370,6 +385,7 @@ abstract class Assert {
          * @throws IllegalArgumentException if the object array is `null` or contains no elements
          */
         @JsName("arrayNotEmpty")
+        @JvmStatic
         fun notEmpty(array: Array<*>?, message: String) {
             if (array.isNullOrEmpty()) {
                 throw IllegalArgumentException(message)
@@ -391,6 +407,7 @@ abstract class Assert {
          * @since Spring Framework 5.0
          */
         @JsName("arrayNotEmptyWithMessageSupplier")
+        @JvmStatic
         fun notEmpty(array: Array<*>?, messageSupplier: (() -> String)?) {
             if (array.isNullOrEmpty()) {
                 throw IllegalArgumentException(messageSupplier?.invoke())
@@ -411,6 +428,7 @@ abstract class Assert {
          * @throws IllegalArgumentException if the object array contains a `null` element
          */
         @JsName("noNullElements")
+        @JvmStatic
         fun noNullElements(array: Array<*>?, message: String) {
             if (array != null) {
                 for (element in array) {
@@ -437,6 +455,7 @@ abstract class Assert {
          * @since Spring Framework 5.0
          */
         @JsName("noNullElementsWithMessageSupplier")
+        @JvmStatic
         fun noNullElements(array: Array<*>?, messageSupplier: (() -> String)?) {
             if (array != null) {
                 for (element in array) {
@@ -461,6 +480,7 @@ abstract class Assert {
          * contains no elements
          */
         @JsName("collectionNotEmpty")
+        @JvmStatic
         fun notEmpty(collection: Collection<*>?, message: String) {
             if (collection.isNullOrEmpty()) {
                 throw IllegalArgumentException(message)
@@ -483,6 +503,7 @@ abstract class Assert {
          * @since Spring Framework 5.0
          */
         @JsName("collectionNotEmptyWithMessageSupplier")
+        @JvmStatic
         fun notEmpty(collection: Collection<*>?, messageSupplier: (() -> String)?) {
             if (collection.isNullOrEmpty()) {
                 throw IllegalArgumentException(messageSupplier?.invoke())
@@ -505,6 +526,7 @@ abstract class Assert {
          * @throws IllegalArgumentException if the object is not an instance of type
          */
         @JsName("isInstanceOf")
+        @JvmStatic
         fun isInstanceOf(type: KClass<*>, obj: Any, message: String) {
             notNull(type, "Type to check against must not be null")
             if (!type.isInstance(obj)) {
@@ -526,6 +548,7 @@ abstract class Assert {
          * @since 5.0
          */
         @JsName("isInstanceOfWithMessageSupplier")
+        @JvmStatic
         fun isInstanceOf(type: KClass<*>, obj: Any, messageSupplier: (() -> String)?) {
             notNull(type, "Type to check against must not be null")
             if (!type.isInstance(obj)) {
@@ -549,6 +572,7 @@ abstract class Assert {
          * @throws IllegalArgumentException if the classes are not assignable
          */
         @JsName("isAssignable")
+        @JvmStatic
         fun isAssignable(superType: KClass<*>, subType: KClass<*>?, message: String) {
             notNull(superType, "Super type to check against must not be null")
             if (subType == null || !superType.isAssignableFrom(subType)) {
@@ -570,6 +594,7 @@ abstract class Assert {
          * @since 5.0
          */
         @JsName("isAssignableWithMessageSupplier")
+        @JvmStatic
         fun isAssignable(superType: KClass<*>, subType: KClass<*>?, messageSupplier: (() -> String)?) {
             notNull(superType, "Super type to check against must not be null")
             if (subType == null || !superType.isAssignableFrom(subType)) {
@@ -577,6 +602,7 @@ abstract class Assert {
             }
         }
 
+        @JvmStatic
         private fun instanceCheckFailed(type: KClass<*>, obj: Any?, msg: String?) {
             val className = "_" // obj?.javaClass?.getName() ?: "null"
             var result = ""
@@ -595,6 +621,7 @@ abstract class Assert {
             throw IllegalArgumentException(result)
         }
 
+        @JvmStatic
         private fun assignableCheckFailed(superType: KClass<*>, subType: KClass<*>?, msg: String?) {
             var result = ""
             var defaultMessage = true
@@ -612,10 +639,12 @@ abstract class Assert {
             throw IllegalArgumentException(result)
         }
 
+        @JvmStatic
         private fun endsWithSeparator(msg: String): Boolean {
             return (msg.endsWith(":") || msg.endsWith(";") || msg.endsWith(",") || msg.endsWith("."))
         }
 
+        @JvmStatic
         private fun messageWithTypeName(msg: String, typeName: Any?): String {
             return msg + (if (msg.endsWith(" ")) "" else ": ") + typeName
         }

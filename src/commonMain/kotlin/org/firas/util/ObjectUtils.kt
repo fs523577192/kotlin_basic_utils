@@ -18,6 +18,7 @@ package org.firas.util
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 import kotlin.js.JsName
+import kotlin.jvm.JvmStatic
 
 /**
  * Miscellaneous object utility methods.
@@ -51,6 +52,7 @@ abstract class ObjectUtils {
          * @return whether the constant has been found in the given array
          */
         @JsName("containsConstant")
+        @JvmStatic
         fun containsConstant(enumValues: Array<Enum<*>>, constant: String, caseSensitive: Boolean = false): Boolean {
             for (candidate in enumValues) {
                 val compareResult = if (caseSensitive) candidate.toString() == constant

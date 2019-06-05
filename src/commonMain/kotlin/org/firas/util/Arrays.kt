@@ -28,6 +28,7 @@ package org.firas.util
 
 import org.firas.lang.ArrayIndexOutOfBoundsException
 import kotlin.js.JsName
+import kotlin.jvm.JvmStatic
 
 
 /**
@@ -69,6 +70,7 @@ class Arrays private constructor() {
          * @param value the value to be stored in all elements of the array
          */
         @JsName("fillIntArray")
+        @JvmStatic
         fun fill(a: IntArray, value: Int) {
             var i = 0
             val len = a.size
@@ -96,6 +98,7 @@ class Arrays private constructor() {
          * <tt>toIndex &gt; a.length</tt>
          */
         @JsName("fillIntRange")
+        @JvmStatic
         fun fill(a: IntArray, fromIndex: Int, toIndex: Int, value: Int) {
             rangeCheck(a.size, fromIndex, toIndex)
             for (i in fromIndex until toIndex) {
@@ -124,6 +127,7 @@ class Arrays private constructor() {
          * and only if the key is found.
          */
         @JsName("binarySearchLongArray")
+        @JvmStatic
         fun binarySearch(a: LongArray, key: Long): Int {
             return binarySearch0(a, 0, a.size, key)
         }
@@ -159,6 +163,7 @@ class Arrays private constructor() {
          * @since Java 1.6
          */
         @JsName("binarySearchLongRange")
+        @JvmStatic
         fun binarySearch(
             a: LongArray, fromIndex: Int, toIndex: Int,
             key: Long
@@ -168,6 +173,7 @@ class Arrays private constructor() {
         }
 
         // Like public version, but without range checks.
+        @JvmStatic
         private fun binarySearch0(
             a: LongArray, fromIndex: Int, toIndex: Int,
             key: Long
@@ -210,6 +216,7 @@ class Arrays private constructor() {
          * and only if the key is found.
          */
         @JsName("binarySearchIntArray")
+        @JvmStatic
         fun binarySearch(a: IntArray, key: Int): Int {
             return binarySearch0(a, 0, a.size, key)
         }
@@ -245,6 +252,7 @@ class Arrays private constructor() {
          * @since Java 1.6
          */
         @JsName("binarySearchIntRange")
+        @JvmStatic
         fun binarySearch(
             a: IntArray, fromIndex: Int, toIndex: Int,
             key: Int
@@ -254,6 +262,7 @@ class Arrays private constructor() {
         }
 
         // Like public version, but without range checks.
+        @JvmStatic
         private fun binarySearch0(
             a: IntArray, fromIndex: Int, toIndex: Int,
             key: Int
@@ -305,6 +314,7 @@ class Arrays private constructor() {
          * elements of the array.
          */
         @JsName("binarySearchArray")
+        @JvmStatic
         fun <T: Comparable<T>> binarySearch(a: Array<T>, key: T): Int {
             return binarySearch0(a, 0, a.size, key)
         }
@@ -348,6 +358,7 @@ class Arrays private constructor() {
          * @since Java 1.6
          */
         @JsName("binarySearchRange")
+        @JvmStatic
         fun <T: Comparable<T>> binarySearch(
             a: Array<T>, fromIndex: Int, toIndex: Int,
             key: T
@@ -357,6 +368,7 @@ class Arrays private constructor() {
         }
 
         // Like public version, but without range checks.
+        @JvmStatic
         private fun <T: Comparable<T>> binarySearch0(
             a: Array<T>, fromIndex: Int, toIndex: Int,
             key: T
@@ -411,6 +423,7 @@ class Arrays private constructor() {
          * elements of the array using this comparator.
          */
         @JsName("binarySearchArrayWithComparator")
+        @JvmStatic
         fun <T> binarySearch(a: Array<T>, key: T, c: Comparator<in T>): Int {
             return binarySearch0(a, 0, a.size, key, c)
         }
@@ -455,6 +468,7 @@ class Arrays private constructor() {
          * @since Java 1.6
          */
         @JsName("binarySearchRangeWithComparator")
+        @JvmStatic
         fun <T> binarySearch(
             a: Array<T>, fromIndex: Int, toIndex: Int,
             key: T, c: Comparator<in T>
@@ -464,6 +478,7 @@ class Arrays private constructor() {
         }
 
         // Like public version, but without range checks.
+        @JvmStatic
         private fun <T> binarySearch0(
             a: Array<T>, fromIndex: Int, toIndex: Int,
             key: T, c: Comparator<in T>
@@ -500,6 +515,7 @@ class Arrays private constructor() {
          * @return `true` if the two arrays are equal
          */
         @JsName("longArrayEquals")
+        @JvmStatic
         fun equals(a: LongArray?, a2: LongArray?): Boolean {
             if (a === a2) {
                 return true
@@ -533,6 +549,7 @@ class Arrays private constructor() {
          * @return `true` if the two arrays are equal
          */
         @JsName("intArrayEquals")
+        @JvmStatic
         fun equals(a: IntArray?, a2: IntArray?): Boolean {
             if (a === a2) {
                 return true
@@ -566,6 +583,7 @@ class Arrays private constructor() {
          * @return `true` if the two arrays are equal
          */
         @JsName("shortArrayEquals")
+        @JvmStatic
         fun equals(a: ShortArray?, a2: ShortArray?): Boolean {
             if (a === a2) {
                 return true
@@ -599,6 +617,7 @@ class Arrays private constructor() {
          * @return `true` if the two arrays are equal
          */
         @JsName("charArrayEquals")
+        @JvmStatic
         fun equals(a: CharArray?, a2: CharArray?): Boolean {
             if (a === a2) {
                 return true
@@ -632,6 +651,7 @@ class Arrays private constructor() {
          * @return `true` if the two arrays are equal
          */
         @JsName("byteArrayEquals")
+        @JvmStatic
         fun equals(a: ByteArray?, a2: ByteArray?): Boolean {
             if (a === a2) {
                 return true
@@ -665,6 +685,7 @@ class Arrays private constructor() {
          * @return `true` if the two arrays are equal
          */
         @JsName("booleanArrayEquals")
+        @JvmStatic
         fun equals(a: BooleanArray?, a2: BooleanArray?): Boolean {
             if (a === a2) {
                 return true
@@ -701,6 +722,7 @@ class Arrays private constructor() {
          * @return `true` if the two arrays are equal
          */
         @JsName("arrayEquals")
+        @JvmStatic
         fun equals(a: Array<out Any?>?, a2: Array<out Any?>?): Boolean {
             if (a === a2) {
                 return true
@@ -740,6 +762,7 @@ class Arrays private constructor() {
          * @since Java 1.5
          */
         @JsName("longArrayHashCode")
+        @JvmStatic
         fun hashCode(a: LongArray?): Int {
             if (a == null) {
                 return 0
@@ -770,6 +793,7 @@ class Arrays private constructor() {
          * @since Java 1.5
          */
         @JsName("intArrayHashCode")
+        @JvmStatic
         fun hashCode(a: IntArray?): Int {
             if (a == null) {
                 return 0
@@ -799,6 +823,7 @@ class Arrays private constructor() {
          * @since Java 1.5
          */
         @JsName("shortArrayHashCode")
+        @JvmStatic
         fun hashCode(a: ShortArray?): Int {
             if (a == null) {
                 return 0
@@ -828,6 +853,7 @@ class Arrays private constructor() {
          * @since Java 1.5
          */
         @JsName("charArrayHashCode")
+        @JvmStatic
         fun hashCode(a: CharArray?): Int {
             if (a == null) {
                 return 0
@@ -857,6 +883,7 @@ class Arrays private constructor() {
          * @since Java 1.5
          */
         @JsName("byteArrayHashCode")
+        @JvmStatic
         fun hashCode(a: ByteArray?): Int {
             if (a == null) {
                 return 0
@@ -886,6 +913,7 @@ class Arrays private constructor() {
          * @since Java 1.5
          */
         @JsName("booleanArrayHashCode")
+        @JvmStatic
         fun hashCode(a: BooleanArray?): Int {
             if (a == null) {
                 return 0
@@ -921,6 +949,7 @@ class Arrays private constructor() {
          * @since Java 1.5
          */
         @JsName("arrayHashCode")
+        @JvmStatic
         fun hashCode(a: Array<out Any?>?): Int {
             if (a == null) {
                 return 0
@@ -936,6 +965,7 @@ class Arrays private constructor() {
          * Checks that `fromIndex` and `toIndex` are in
          * the range and throws an exception if they aren't.
          */
+        @JvmStatic
         private fun rangeCheck(arrayLength: Int, fromIndex: Int, toIndex: Int) {
             if (fromIndex > toIndex) {
                 throw IllegalArgumentException(

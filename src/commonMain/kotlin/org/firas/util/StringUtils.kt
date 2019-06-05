@@ -17,6 +17,7 @@ package org.firas.util
 
 import org.firas.lang.Character
 import kotlin.js.JsName
+import kotlin.jvm.JvmStatic
 
 /**
  * Miscellaneous {@link String} utility methods.
@@ -64,6 +65,7 @@ abstract class StringUtils {
          * @see .hasText
          */
         @JsName("isEmpty")
+        @JvmStatic
         fun isEmpty(str: Any?): Boolean {
             return str == null || "" == str
         }
@@ -91,6 +93,7 @@ abstract class StringUtils {
          * @see Character.isWhitespace
          */
         @JsName("hasText")
+        @JvmStatic
         fun hasText(str: CharSequence?): Boolean {
             return !str.isNullOrEmpty() && containsText(str)
         }
@@ -103,6 +106,7 @@ abstract class StringUtils {
          * @see Character.isWhitespace
          */
         @JsName("containsWhitespace")
+        @JvmStatic
         fun containsWhitespace(str: CharSequence?): Boolean {
             if (str.isNullOrEmpty()) {
                 return false
@@ -124,6 +128,7 @@ abstract class StringUtils {
          * @see Character.isWhitespace
          */
         @JsName("trimWhitespace")
+        @JvmStatic
         fun trimWhitespace(str: String): String {
             if (str.isEmpty()) {
                 return str
@@ -151,6 +156,7 @@ abstract class StringUtils {
          * @see Character.isWhitespace
          */
         @JsName("trimAllWhitespace")
+        @JvmStatic
         fun trimAllWhitespace(str: String): String {
             if (str.isEmpty()) {
                 return str
@@ -175,6 +181,7 @@ abstract class StringUtils {
          * @see String.startsWith
          */
         @JsName("startsWithIgnoreCase")
+        @JvmStatic
         fun startsWithIgnoreCase(str: String?, prefix: String?): Boolean {
             return str != null && prefix != null && str.length >= prefix.length &&
                     str.regionMatches(0, prefix, 0, prefix.length, ignoreCase = true)
@@ -188,6 +195,7 @@ abstract class StringUtils {
          * @see String.endsWith
          */
         @JsName("endsWithIgnoreCase")
+        @JvmStatic
         fun endsWithIgnoreCase(str: String?, suffix: String?): Boolean {
             return str != null && suffix != null && str.length >= suffix.length &&
                     str.regionMatches(str.length - suffix.length, suffix, 0, suffix.length, ignoreCase = true)
@@ -201,6 +209,7 @@ abstract class StringUtils {
          * @param substring the substring to match at the given index
          */
         @JsName("substringMatch")
+        @JvmStatic
         fun substringMatch(str: CharSequence, index: Int, substring: CharSequence): Boolean {
             if (index + substring.length > str.length) {
                 return false
@@ -219,6 +228,7 @@ abstract class StringUtils {
          * @param sub string to search for
          */
         @JsName("countOccurrencesOf")
+        @JvmStatic
         fun countOccurrencesOf(str: String, sub: String): Int {
             if (str.isEmpty() || sub.isEmpty()) {
                 return 0
@@ -245,6 +255,7 @@ abstract class StringUtils {
          * @return a `String` with the replacements
          */
         @JsName("replace")
+        @JvmStatic
         fun replace(inString: String, oldPattern: String, newPattern: String?): String {
             if (inString.isEmpty() || oldPattern.isEmpty() || newPattern == null) {
                 return inString
@@ -285,6 +296,7 @@ abstract class StringUtils {
 
         private const val EXTENSION_SEPARATOR = '.'
 
+        @JvmStatic
         private fun containsText(str: CharSequence): Boolean {
             val strLen = str.length
             for (i in 0 until strLen) {
