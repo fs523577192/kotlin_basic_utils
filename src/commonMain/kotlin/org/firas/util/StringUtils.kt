@@ -308,3 +308,5 @@ abstract class StringUtils {
         }
     }
 }
+
+expect fun internString(str: String): String
