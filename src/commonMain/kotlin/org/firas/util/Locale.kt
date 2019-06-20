@@ -876,6 +876,43 @@ class Locale {
             }
             return extensions
         }
+
+        /**
+         * Format a list using given pattern strings.
+         * If either of the patterns is null, then a the list is
+         * formatted by concatenation with the delimiter ','.
+         * @param stringList the list of strings to be formatted.
+         * and formatting them into a list.
+         * @param pattern should take 2 arguments for reduction
+         * @return a string representing the list.
+        @JvmStatic
+        private fun formatList(stringList: Array<String>, pattern: String?): String {
+            // If we have no list patterns, compose the list in a simple,
+            // non-localized way.
+            if (pattern == null) {
+                return stringList.joinToString(",")
+            }
+
+            return when (stringList.size) {
+                0 -> ""
+                1 -> stringList[0]
+                else ->
+                    stringList.asList().reduce {s1, s2 ->
+                        return if (s1 == "") s2
+                        else if (s2 == "")  s1
+                        else MessageFormat.format(pattern, s1, s2)
+                    }
+            }
+        }
+         */
+
+        // Duplicate of sun.util.locale.UnicodeLocaleExtension.isKey in order to
+        // avoid its class loading.
+        @JvmStatic
+        private fun isUnicodeExtensionKey(s: String): Boolean {
+            // 2alphanum
+            return s.length == 2 && LocaleUtils.isAlphaNumericString(s)
+        }
     } // companion object
 
     /**
@@ -1045,4 +1082,70 @@ class Locale {
     @Volatile
     @Transient
     private var languageTag: String? = null
+
+    /**
+     * Return an array of the display names of the variant.
+     * @param bundle the ResourceBundle to use to get the display names
+     * @return an array of display names, possible of zero length.
+    private fun getDisplayVariantArray(inLocale: Locale): Array<String> {
+        // Split the variant name into tokens separated by '_'.
+        val tokenizer = StringTokenizer(this.baseLocale!!.variant, "_")
+        return Array<String>(tokenizer.countTokens()) { i ->
+            // For each variant token, lookup the display name.  If
+            // not found, use the variant name itself.
+            getDisplayString(
+                tokenizer.next(), null,
+                inLocale, DISPLAY_VARIANT
+            )
+        }
+    }
+     */
+
+    /*
+    private fun getDisplayString(code: String, cat: String, inLocale: Locale, type: Int): String {
+        if (code.isEmpty()) {
+            return ""
+        }
+
+        val pool = LocaleServiceProviderPool.getPool(LocaleNameProvider::class)
+        val rbKey = if (type == DISPLAY_VARIANT) "%%"+code else code
+        val result = pool.getLocalizedObject(
+                                LocaleNameGetter.INSTANCE,
+                                inLocale, rbKey, type, code, cat)
+        return result ?: code
+    }
+    */
+
+    /*
+    private fun getDisplayKeyTypeExtensionString(key: String, lr: LocaleResources, inLocale: Locale): String? {
+        val type = this.localeExtensions!!.getUnicodeLocaleType(key)
+        var ret = getDisplayString(type, key, inLocale, DISPLAY_UEXT_TYPE)
+
+        if (ret == null || ret == type) {
+            // no localization for this type. try combining key/type separately
+            var displayType: String = type
+            when (key) {
+                "cu" -> displayType = lr.getCurrencyName(type!!.toLowerCase(Locale.ROOT))
+                "rg" -> if (type != null &&
+                    // UN M.49 code should not be allowed here
+                    type.matches("^[a-zA-Z]{2}[zZ]{4}$".toRegex())
+                ) {
+                    displayType = lr.getLocaleName(type.substring(0, 2).toUpperCase(Locale.ROOT))
+                }
+                "tz" -> displayType = TimeZoneNameUtility.convertLDMLShortID(type)
+                    .map({ id -> TimeZoneNameUtility.retrieveGenericDisplayName(id, TimeZone.LONG, inLocale) })
+                    .orElse(type)
+            }
+            ret = MessageFormat.format(
+                lr.getLocaleName("ListKeyTypePattern"),
+                getDisplayString(key, null, inLocale, DISPLAY_UEXT_KEY),
+                Optional.ofNullable(displayType).orElse(type)
+            )
+        }
+
+        return ret
+    }
+    */
+
+
 }

@@ -310,3 +310,4 @@ abstract class StringUtils {
 }
 
 expect fun internString(str: String): String
+expect fun codePointAtInCharSequence(index: Int, cs: CharSequence): Int

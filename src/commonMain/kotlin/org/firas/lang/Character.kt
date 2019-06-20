@@ -47,8 +47,7 @@ class Character {
          * @see Int.toString
          * @see String.toInt
          */
-        @JvmStatic
-        val MIN_RADIX = 2
+        const val MIN_RADIX = 2
 
         /**
          * The maximum radix available for conversion to and from strings.
@@ -62,8 +61,94 @@ class Character {
          * @see Int.toString
          * @see String.toInt
          */
-        @JvmStatic
-        val MAX_RADIX = 36
+        const val MAX_RADIX = 36
+
+        /**
+         * The minimum value of a
+         * [
+         * Unicode high-surrogate code unit](http://www.unicode.org/glossary/#high_surrogate_code_unit)
+         * in the UTF-16 encoding, constant `'\u005CuD800'`.
+         * A high-surrogate is also known as a *leading-surrogate*.
+         *
+         * @since Java 1.5
+         */
+        const val MIN_HIGH_SURROGATE = '\uD800'
+
+        /**
+         * The maximum value of a
+         * [
+         * Unicode high-surrogate code unit](http://www.unicode.org/glossary/#high_surrogate_code_unit)
+         * in the UTF-16 encoding, constant `'\u005CuDBFF'`.
+         * A high-surrogate is also known as a *leading-surrogate*.
+         *
+         * @since Java 1.5
+         */
+        const val MAX_HIGH_SURROGATE = '\uDBFF'
+
+        /**
+         * The minimum value of a
+         * [
+         * Unicode low-surrogate code unit](http://www.unicode.org/glossary/#low_surrogate_code_unit)
+         * in the UTF-16 encoding, constant `'\u005CuDC00'`.
+         * A low-surrogate is also known as a *trailing-surrogate*.
+         *
+         * @since Java 1.5
+         */
+        const val MIN_LOW_SURROGATE = '\uDC00'
+
+        /**
+         * The maximum value of a
+         * [
+         * Unicode low-surrogate code unit](http://www.unicode.org/glossary/#low_surrogate_code_unit)
+         * in the UTF-16 encoding, constant `'\u005CuDFFF'`.
+         * A low-surrogate is also known as a *trailing-surrogate*.
+         *
+         * @since Java 1.5
+         */
+        const val MAX_LOW_SURROGATE = '\uDFFF'
+
+        /**
+         * The minimum value of a Unicode surrogate code unit in the
+         * UTF-16 encoding, constant `'\u005CuD800'`.
+         *
+         * @since Java 1.5
+         */
+        const val MIN_SURROGATE = MIN_HIGH_SURROGATE
+
+        /**
+         * The maximum value of a Unicode surrogate code unit in the
+         * UTF-16 encoding, constant `'\u005CuDFFF'`.
+         *
+         * @since Java 1.5
+         */
+        const val MAX_SURROGATE = MAX_LOW_SURROGATE
+
+        /**
+         * The minimum value of a
+         * [
+         * Unicode supplementary code point](http://www.unicode.org/glossary/#supplementary_code_point), constant `U+10000`.
+         *
+         * @since Java 1.5
+         */
+        const val MIN_SUPPLEMENTARY_CODE_POINT = 0x010000
+
+        /**
+         * The minimum value of a
+         * [
+         * Unicode code point](http://www.unicode.org/glossary/#code_point), constant `U+0000`.
+         *
+         * @since Java 1.5
+         */
+        const val MIN_CODE_POINT = 0x000000
+
+        /**
+         * The maximum value of a
+         * [
+         * Unicode code point](http://www.unicode.org/glossary/#code_point), constant `U+10FFFF`.
+         *
+         * @since Java 1.5
+         */
+        const val MAX_CODE_POINT = 0X10FFFF
 
         /**
          * Determines if the specified character is a digit.
@@ -305,6 +390,164 @@ class Character {
         @JvmStatic
         fun stringToCharArray(str: String): CharArray {
             return str.toList().toCharArray()
+        }
+
+        /**
+         * Determines if the given `char` value is a
+         * [
+         * Unicode high-surrogate code unit](http://www.unicode.org/glossary/#high_surrogate_code_unit)
+         * (also known as *leading-surrogate code unit*).
+         *
+         *
+         * Such values do not represent characters by themselves,
+         * but are used in the representation of
+         * [supplementary characters](#supplementary)
+         * in the UTF-16 encoding.
+         *
+         * @param  ch the `char` value to be tested.
+         * @return `true` if the `char` value is between
+         * [.MIN_HIGH_SURROGATE] and
+         * [.MAX_HIGH_SURROGATE] inclusive;
+         * `false` otherwise.
+         * @see Character.isLowSurrogate
+         * @see Character.UnicodeBlock.of
+         * @since  Java 1.5
+         */
+        fun isHighSurrogate(ch: Char): Boolean {
+            // Help VM constant-fold; MAX_HIGH_SURROGATE + 1 == MIN_LOW_SURROGATE
+            return ch >= MIN_HIGH_SURROGATE && ch < MAX_HIGH_SURROGATE + 1
+        }
+
+        /**
+         * Determines if the given `char` value is a
+         * [
+         * Unicode low-surrogate code unit](http://www.unicode.org/glossary/#low_surrogate_code_unit)
+         * (also known as *trailing-surrogate code unit*).
+         *
+         *
+         * Such values do not represent characters by themselves,
+         * but are used in the representation of
+         * [supplementary characters](#supplementary)
+         * in the UTF-16 encoding.
+         *
+         * @param  ch the `char` value to be tested.
+         * @return `true` if the `char` value is between
+         * [.MIN_LOW_SURROGATE] and
+         * [.MAX_LOW_SURROGATE] inclusive;
+         * `false` otherwise.
+         * @see Character.isHighSurrogate
+         * @since  Java 1.5
+         */
+        fun isLowSurrogate(ch: Char): Boolean {
+            return ch >= MIN_LOW_SURROGATE && ch < MAX_LOW_SURROGATE + 1
+        }
+
+        /**
+         * Determines if the given `char` value is a Unicode
+         * *surrogate code unit*.
+         *
+         *
+         * Such values do not represent characters by themselves,
+         * but are used in the representation of
+         * [supplementary characters](#supplementary)
+         * in the UTF-16 encoding.
+         *
+         *
+         * A char value is a surrogate code unit if and only if it is either
+         * a [low-surrogate code unit][.isLowSurrogate] or
+         * a [high-surrogate code unit][.isHighSurrogate].
+         *
+         * @param  ch the `char` value to be tested.
+         * @return `true` if the `char` value is between
+         * [.MIN_SURROGATE] and
+         * [.MAX_SURROGATE] inclusive;
+         * `false` otherwise.
+         * @since  Java 1.7
+         */
+        fun isSurrogate(ch: Char): Boolean {
+            return ch >= MIN_SURROGATE && ch < MAX_SURROGATE + 1
+        }
+
+        /**
+         * Determines the number of `char` values needed to
+         * represent the specified character (Unicode code point). If the
+         * specified character is equal to or greater than 0x10000, then
+         * the method returns 2. Otherwise, the method returns 1.
+         *
+         *
+         * This method doesn't validate the specified character to be a
+         * valid Unicode code point. The caller must validate the
+         * character value using [isValidCodePoint][.isValidCodePoint]
+         * if necessary.
+         *
+         * @param   codePoint the character (Unicode code point) to be tested.
+         * @return  2 if the character is a valid supplementary character; 1 otherwise.
+         * @see Character.isSupplementaryCodePoint
+         * @since  Java 1.5
+         */
+        @JsName("charCount")
+        @JvmStatic
+        fun charCount(codePoint: Int): Int {
+            return if (codePoint >= MIN_SUPPLEMENTARY_CODE_POINT) 2 else 1
+        }
+
+        /**
+         * Converts the specified surrogate pair to its supplementary code
+         * point value. This method does not validate the specified
+         * surrogate pair. The caller must validate it using [ ][.isSurrogatePair] if necessary.
+         *
+         * @param  high the high-surrogate code unit
+         * @param  low the low-surrogate code unit
+         * @return the supplementary code point composed from the
+         * specified surrogate pair.
+         * @since  Java 1.5
+         */
+        @JsName("toCodePoint")
+        @JvmStatic
+        fun toCodePoint(high: Char, low: Char): Int {
+            // Optimized form of:
+            // return ((high - MIN_HIGH_SURROGATE) << 10)
+            //         + (low - MIN_LOW_SURROGATE)
+            //         + MIN_SUPPLEMENTARY_CODE_POINT;
+            return (high.toInt() shl 10) + low.toInt() + (MIN_SUPPLEMENTARY_CODE_POINT
+                    - (MIN_HIGH_SURROGATE.toInt() shl 10)
+                    - MIN_LOW_SURROGATE.toInt())
+        }
+
+        /**
+         * Returns the code point at the given index of the
+         * `CharSequence`. If the `char` value at
+         * the given index in the `CharSequence` is in the
+         * high-surrogate range, the following index is less than the
+         * length of the `CharSequence`, and the
+         * `char` value at the following index is in the
+         * low-surrogate range, then the supplementary code point
+         * corresponding to this surrogate pair is returned. Otherwise,
+         * the `char` value at the given index is returned.
+         *
+         * @param seq a sequence of `char` values (Unicode code
+         * units)
+         * @param index the index to the `char` values (Unicode
+         * code units) in `seq` to be converted
+         * @return the Unicode code point at the given index
+         * @throws NullPointerException if `seq` is null.
+         * @throws IndexOutOfBoundsException if the value
+         * `index` is negative or not less than
+         * [seq.length()][CharSequence.length].
+         * @since  Java 1.5
+         */
+        @JsName("codePointAtInCharSequence")
+        @JvmStatic
+        fun codePointAt(seq: CharSequence, index: Int): Int {
+            var index = index
+            val c1 = seq[index]
+            if (isHighSurrogate(c1) && ++index < seq.length) {
+                val c2 = seq[index]
+                if (isLowSurrogate(c2)) {
+                    return toCodePoint(c1, c2)
+                }
+            }
+            return c1.toInt()
         }
     }  // companion object
 }
