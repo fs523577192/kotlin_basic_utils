@@ -55,7 +55,23 @@ fun StringBuilder.setLength(length: Int) {
 @JsName("StringBuilder_insert")
 fun StringBuilder.insert(index: Int, charSequence: CharSequence): StringBuilder {
     checkOffset(index, this.length)
-    val temp = this.subSequence(index, this.length)
-    this.removeRange(index, this.length)
-    return this.append(charSequence).append(temp)
+    val temp1 = this.subSequence(0, index)
+    val temp2 = this.subSequence(index, this.length)
+    return this.clear().append(temp1).append(charSequence).append(temp2)
+}
+
+/**
+ * Supplement of kotlin.text.StringBuilder
+ * @author Wu Yuping
+ */
+@JsName("StringBuilder_replaceRange")
+fun StringBuilder.replace(indexBegin: Int, indexEnd: Int, charSequence: CharSequence): StringBuilder {
+    if (indexBegin > indexEnd) {
+        throw IllegalArgumentException("indexBegin ($indexBegin) must not be greater than indexEnd ($indexEnd)")
+    }
+    checkOffset(indexBegin, this.length)
+    checkOffset(indexEnd, this.length)
+    val temp1 = this.subSequence(0, indexBegin)
+    val temp2 = this.subSequence(indexEnd, this.length)
+    return this.clear().append(temp1).append(charSequence).append(temp2)
 }
