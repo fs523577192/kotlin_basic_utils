@@ -325,32 +325,36 @@ import kotlin.jvm.Volatile
  *
  * <h4>Compatibility</h4>
  *
- * <p>In order to maintain compatibility with existing usage, Locale's
+ *
+ * In order to maintain compatibility with existing usage, Locale's
  * constructors retain their behavior prior to the Java Runtime
  * Environment version 1.7.  The same is largely true for the
- * <code>toString</code> method. Thus Locale objects can continue to
+ * `toString` method. Thus Locale objects can continue to
  * be used as they were. In particular, clients who parse the output
  * of toString into language, country, and variant fields can continue
  * to do so (although this is strongly discouraged), although the
  * variant field will have additional information in it if script or
  * extensions are present.
  *
- * <p>In addition, BCP 47 imposes syntax restrictions that are not
+ *
+ * In addition, BCP 47 imposes syntax restrictions that are not
  * imposed by Locale's constructors. This means that conversions
  * between some Locales and BCP 47 language tags cannot be made without
- * losing information. Thus <code>toLanguageTag</code> cannot
+ * losing information. Thus `toLanguageTag` cannot
  * represent the state of locales whose language, country, or variant
  * do not conform to BCP 47.
  *
- * <p>Because of these issues, it is recommended that clients migrate
+ *
+ * Because of these issues, it is recommended that clients migrate
  * away from constructing non-conforming locales and use the
- * <code>forLanguageTag</code> and <code>Locale.Builder</code> APIs instead.
+ * `forLanguageTag` and `Locale.Builder` APIs instead.
  * Clients desiring a string representation of the complete locale can
- * then always rely on <code>toLanguageTag</code> for this purpose.
+ * then always rely on `toLanguageTag` for this purpose.
  *
  * <h5><a id="special_cases_constructor">Special cases</a></h5>
  *
- * <p>For compatibility reasons, two
+ *
+ * For compatibility reasons, two
  * non-conforming locales are treated as special cases.  These are
  * <b>`ja_JP_JP`</b> and <b>`th_TH_TH`</b>. These are ill-formed
  * in BCP 47 since the variants are too short. To ease migration to BCP 47,
@@ -358,7 +362,8 @@ import kotlin.jvm.Volatile
  * these) cause a constructor to generate an extension, all other values behave
  * exactly as they did prior to Java 7.
  *
- * <p>Java has used `ja_JP_JP` to represent Japanese as used in
+ *
+ * Java has used `ja_JP_JP` to represent Japanese as used in
  * Japan together with the Japanese Imperial calendar. This is now
  * representable using a Unicode locale extension, by specifying the
  * Unicode locale key `ca` (for "calendar") and type
@@ -366,7 +371,8 @@ import kotlin.jvm.Volatile
  * arguments "ja", "JP", "JP", the extension "u-ca-japanese" is
  * automatically added.
  *
- * <p>Java has used `th_TH_TH` to represent Thai as used in
+ *
+ * Java has used `th_TH_TH` to represent Thai as used in
  * Thailand together with Thai digits. This is also now representable using
  * a Unicode locale extension, by specifying the Unicode locale key
  * `nu` (for "number") and value `thai`. When the Locale
@@ -375,26 +381,30 @@ import kotlin.jvm.Volatile
  *
  * <h5>Serialization</h5>
  *
- * <p>During serialization, writeObject writes all fields to the output
+ *
+ * During serialization, writeObject writes all fields to the output
  * stream, including extensions.
  *
- * <p>During deserialization, readResolve adds extensions as described
+ *
+ * During deserialization, readResolve adds extensions as described
  * in <a href="#special_cases_constructor">Special Cases</a>, only
  * for the two cases th_TH_TH and ja_JP_JP.
  *
  * <h5>Legacy language codes</h5>
  *
- * <p>Locale's constructor has always converted three language codes to
+ *
+ * Locale's constructor has always converted three language codes to
  * their earlier, obsoleted forms: `he` maps to `iw`,
  * `yi` maps to `ji`, and `id` maps to
  * `in`.  This continues to be the case, in order to not break
  * backwards compatibility.
  *
- * <p>The APIs added in 1.7 map between the old and new language codes,
+ *
+ * The APIs added in 1.7 map between the old and new language codes,
  * maintaining the old codes internal to Locale (so that
- * <code>getLanguage</code> and <code>toString</code> reflect the old
- * code), but using the new codes in the BCP 47 language tag APIs (so
- * that <code>toLanguageTag</code> reflects the new one). This
+ * `getLanguage` and `toString` reflect the old code),
+ * but using the new codes in the BCP 47 language tag APIs
+ * (so that `toLanguageTag` reflects the new one). This
  * preserves the equivalence between Locales no matter which code or
  * API is used to construct them. Java's default resource bundle
  * lookup mechanism also implements this mapping, so that resources
@@ -402,7 +412,8 @@ import kotlin.jvm.Volatile
  *
  * <h5>Three-letter language/country(region) codes</h5>
  *
- * <p>The Locale constructors have always specified that the language
+ *
+ * The Locale constructors have always specified that the language
  * and the country param be two characters in length, although in
  * practice they have accepted any length.  The specification has now
  * been relaxed to allow language codes of two to eight characters and
@@ -1082,6 +1093,187 @@ class Locale {
     @Volatile
     @Transient
     private var languageTag: String? = null
+
+    override fun toString(): String {
+        val baseLocale = this.baseLocale!!
+        val l = baseLocale.language.isNotEmpty()
+        val s = baseLocale.script.isNotEmpty()
+        val r = baseLocale.region.isNotEmpty()
+        val v = baseLocale.variant.isNotEmpty()
+        val e = this.localeExtensions != null && this.localeExtensions.id.isNotEmpty()
+
+        val result = StringBuilder().append(baseLocale.language)
+        if (r || l && (v || s || e)) {
+            result.append('_').append(baseLocale.region) // This may just append '_'
+        }
+        if (v && (l || r)) {
+            result.append('_').append(baseLocale.variant)
+        }
+
+        if (s && (l || r)) {
+            result.append("_#").append(baseLocale.script)
+        }
+
+        if (e && (l || r)) {
+            result.append('_')
+            if (!s) {
+                result.append('#')
+            }
+            result.append(this.localeExtensions!!.id)
+        }
+
+        return result.toString()
+    }
+
+    /**
+     * Returns a well-formed IETF BCP 47 language tag representing
+     * this locale.
+     *
+     *
+     * If this `Locale` has a language, country, or
+     * variant that does not satisfy the IETF BCP 47 language tag
+     * syntax requirements, this method handles these fields as
+     * described below:
+     *
+     *
+     * **Language:** If language is empty, or not [well-formed](#def_language) (for example "a" or
+     * "e2"), it will be emitted as "und" (Undetermined).
+     *
+     *
+     * **Country:** If country is not [well-formed](#def_region) (for example "12" or "USA"),
+     * it will be omitted.
+     *
+     *
+     * **Variant:** If variant **is** [well-formed](#def_variant), each sub-segment
+     * (delimited by '-' or '_') is emitted as a subtag.  Otherwise:
+     *
+     *
+     *  * if all sub-segments match `[0-9a-zA-Z]{1,8}`
+     * (for example "WIN" or "Oracle_JDK_Standard_Edition"), the first
+     * ill-formed sub-segment and all following will be appended to
+     * the private use subtag.  The first appended subtag will be
+     * "lvariant", followed by the sub-segments in order, separated by
+     * hyphen. For example, "x-lvariant-WIN",
+     * "Oracle-x-lvariant-JDK-Standard-Edition".
+     *
+     *  * if any sub-segment does not match
+     * `[0-9a-zA-Z]{1,8}`, the variant will be truncated
+     * and the problematic sub-segment and all following sub-segments
+     * will be omitted.  If the remainder is non-empty, it will be
+     * emitted as a private use subtag as above (even if the remainder
+     * turns out to be well-formed).  For example,
+     * "Solaris_isjustthecoolestthing" is emitted as
+     * "x-lvariant-Solaris", not as "solaris".
+     *
+     *
+     * **Special Conversions:** Java supports some old locale
+     * representations, including deprecated ISO language codes,
+     * for compatibility. This method performs the following
+     * conversions:
+     *
+     *
+     *  * Deprecated ISO language codes "iw", "ji", and "in" are
+     * converted to "he", "yi", and "id", respectively.
+     *
+     *  * A locale with language "no", country "NO", and variant
+     * "NY", representing Norwegian Nynorsk (Norway), is converted
+     * to a language tag "nn-NO".
+     *
+     *
+     * **Note:** Although the language tag created by this
+     * method is well-formed (satisfies the syntax requirements
+     * defined by the IETF BCP 47 specification), it is not
+     * necessarily a valid BCP 47 language tag.  For example,
+     * <pre>
+     * new Locale("xx", "YY").toLanguageTag();</pre>
+     *
+     * will return "xx-YY", but the language subtag "xx" and the
+     * region subtag "YY" are invalid because they are not registered
+     * in the IANA Language Subtag Registry.
+     *
+     * @return a BCP47 language tag representing the locale
+     * @see .forLanguageTag
+     * @since Java 1.7
+     */
+    fun toLanguageTag(): String {
+        var languageTag = this.languageTag
+        if (languageTag != null) {
+            return languageTag
+        }
+
+        val tag = LanguageTag.parseLocale(this.baseLocale!!, this.localeExtensions)
+        val buf = StringBuilder()
+
+        var subtag = tag.getLanguage()
+        if (subtag.isNotEmpty()) {
+            buf.append(LanguageTag.canonicalizeLanguage(subtag))
+        }
+
+        subtag = tag.getScript()
+        if (subtag.isNotEmpty()) {
+            buf.append(LanguageTag.SEP)
+            buf.append(LanguageTag.canonicalizeScript(subtag))
+        }
+
+        subtag = tag.getRegion()
+        if (subtag.isNotEmpty()) {
+            buf.append(LanguageTag.SEP)
+            buf.append(LanguageTag.canonicalizeRegion(subtag))
+        }
+
+        var subtags = tag.getVariants()
+        for (s in subtags) {
+            buf.append(LanguageTag.SEP)
+            // preserve casing
+            buf.append(s)
+        }
+
+        subtags = tag.getExtensions()
+        for (s in subtags) {
+            buf.append(LanguageTag.SEP)
+            buf.append(LanguageTag.canonicalizeExtension(s))
+        }
+
+        subtag = tag.getPrivateuse()
+        if (subtag.isNotEmpty()) {
+            if (buf.isNotEmpty()) {
+                buf.append(LanguageTag.SEP)
+            }
+            buf.append(LanguageTag.PRIVATEUSE).append(LanguageTag.SEP)
+            // preserve casing
+            buf.append(subtag)
+        }
+
+        val langTag = buf.toString()
+        org.firas.lang.synchronized(this) {
+            if (this.languageTag == null) {
+                this.languageTag = langTag
+            }
+        }
+        return this.languageTag!!
+    }
+
+    override fun hashCode(): Int {
+        var hc = this.hashCodeValue
+        if (hc == 0) {
+            hc = this.baseLocale.hashCode()
+            if (this.localeExtensions != null) {
+                hc = hc xor this.localeExtensions.hashCode()
+            }
+            this.hashCodeValue = hc
+        }
+        return hc
+    }
+
+    override fun equals(other: Any?): Boolean {
+         if (this === other) {                    // quick check
+             return true
+         }
+        if (other !is Locale) {
+            return false
+        }
+        return this.baseLocale == other.baseLocale && this.localeExtensions == other.localeExtensions
+    }
 
     /**
      * Return an array of the display names of the variant.
