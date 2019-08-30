@@ -35,7 +35,7 @@ package org.firas.util
  *
  * @author Wu Yuping (migrate from OpenJDK 11)
  */
-internal class ParseStatus {
+/*internal*/ class ParseStatus {
     internal var parseLength: Int = 0
     internal var errorIndex: Int = 0
     internal var errorMessage: String? = null

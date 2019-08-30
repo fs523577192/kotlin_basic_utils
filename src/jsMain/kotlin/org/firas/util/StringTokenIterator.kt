@@ -35,7 +35,7 @@ package org.firas.util
  *
  * @author Wu Yuping (migrate from OpenJDK 11)
  */
-internal class StringTokenIterator {
+/*internal*/ class StringTokenIterator: Iterator<String?> {
 
     private var text: String
     private var dlms: String? = null        // null if a single char delimiter
@@ -77,7 +77,7 @@ internal class StringTokenIterator {
         return this.done
     }
 
-    operator fun next(): String? {
+    override operator fun next(): String? {
         if (hasNext()) {
             this.start = end + 1
             this.end = this.nextDelimiter(this.start)
@@ -90,7 +90,7 @@ internal class StringTokenIterator {
         return this.token
     }
 
-    operator fun hasNext(): Boolean {
+    override operator fun hasNext(): Boolean {
         return this.end < this.text.length
     }
 
