@@ -60,7 +60,7 @@ class StringBuilderTests {
 
             val originalLength = builder1.length
 
-            val indexBegin = Random.nextInt(0, builder1.length - 1)
+            val indexBegin = if (builder1.length <= 1) 0 else Random.nextInt(0, builder1.length - 1)
             val indexEnd = Random.nextInt(indexBegin, builder1.length)
             println("indexBegin: $indexBegin, indexEnd: $indexEnd")
             println(builder1.replace(indexBegin, indexEnd, builder2))
