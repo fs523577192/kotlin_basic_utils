@@ -32,14 +32,12 @@
 package org.firas.util
 
 import kotlin.js.JsName
-import kotlin.jvm.JvmStatic
-
 
 /**
  *
  * @author Wu Yuping (migrate from OpenJDK 11)
  */
-internal class LanguageTag {
+/*internal*/ class LanguageTag {
 
     companion object {
         internal const val SEP = "-"
@@ -164,7 +162,6 @@ internal class LanguageTag {
          *
          */
         @JsName("parse")
-        @JvmStatic
         internal fun parse(languageTag: String, parseStatus: ParseStatus?): LanguageTag {
             val sts = if (parseStatus == null) ParseStatus()
                     else {
@@ -207,7 +204,6 @@ internal class LanguageTag {
         }
 
         @JsName("parseLocale")
-        @JvmStatic
         internal fun parseLocale(baseLocale: BaseLocale, localeExtensions: LocaleExtensions?): LanguageTag {
             val tag = LanguageTag()
 
@@ -336,7 +332,6 @@ internal class LanguageTag {
         //
 
         @JsName("isLanguage")
-        @JvmStatic
         internal fun isLanguage(s: String): Boolean {
             // language      = 2*3ALPHA            ; shortest ISO 639 code
             //                 ["-" extlang]       ; sometimes followed by
@@ -348,7 +343,6 @@ internal class LanguageTag {
         }
 
         @JsName("isExtlang")
-        @JvmStatic
         internal fun isExtlang(s: String): Boolean {
             // extlang       = 3ALPHA              ; selected ISO 639 codes
             //                 *2("-" 3ALPHA)      ; permanently reserved
@@ -356,14 +350,12 @@ internal class LanguageTag {
         }
 
         @JsName("isScript")
-        @JvmStatic
         internal fun isScript(s: String): Boolean {
             // script        = 4ALPHA              ; ISO 15924 code
             return s.length == 4 && LocaleUtils.isAlphaString(s)
         }
 
         @JsName("isRegion")
-        @JvmStatic
         internal fun isRegion(s: String): Boolean {
             // region        = 2ALPHA              ; ISO 3166-1 code
             //               / 3DIGIT              ; UN M.49 code
@@ -372,7 +364,6 @@ internal class LanguageTag {
         }
 
         @JsName("isVariant")
-        @JvmStatic
         internal fun isVariant(s: String): Boolean {
             // variant       = 5*8alphanum         ; registered variants
             //               / (DIGIT 3alphanum)
@@ -388,7 +379,6 @@ internal class LanguageTag {
         }
 
         @JsName("isExtensionSingleton")
-        @JvmStatic
         internal fun isExtensionSingleton(s: String): Boolean {
             // singleton     = DIGIT               ; 0 - 9
             //               / %x41-57             ; A - W
@@ -402,13 +392,11 @@ internal class LanguageTag {
         }
 
         @JsName("isExtensionSingletonChar")
-        @JvmStatic
         internal fun isExtensionSingletonChar(c: Char): Boolean {
             return isExtensionSingleton(c.toString())
         }
 
         @JsName("isExtensionSubtag")
-        @JvmStatic
         internal fun isExtensionSubtag(s: String): Boolean {
             // extension     = singleton 1*("-" (2*8alphanum))
             val len = s.length
@@ -416,20 +404,17 @@ internal class LanguageTag {
         }
 
         @JsName("isPrivateusePrefix")
-        @JvmStatic
         internal fun isPrivateusePrefix(s: String): Boolean {
             // privateuse    = "x" 1*("-" (1*8alphanum))
             return s.length == 1 && LocaleUtils.caseIgnoreMatch(PRIVATEUSE, s)
         }
 
         @JsName("isPrivateusePrefixChar")
-        @JvmStatic
         internal fun isPrivateusePrefixChar(c: Char): Boolean {
             return LocaleUtils.caseIgnoreMatch(PRIVATEUSE, c.toString())
         }
 
         @JsName("isPrivateuseSubtag")
-        @JvmStatic
         internal fun isPrivateuseSubtag(s: String): Boolean {
             // privateuse    = "x" 1*("-" (1*8alphanum))
             val len = s.length
@@ -441,61 +426,51 @@ internal class LanguageTag {
         //
 
         @JsName("canonicalizeLanguage")
-        @JvmStatic
         internal fun canonicalizeLanguage(s: String): String {
             return LocaleUtils.toLowerString(s)
         }
 
         @JsName("canonicalizeExtlang")
-        @JvmStatic
         internal fun canonicalizeExtlang(s: String): String {
             return LocaleUtils.toLowerString(s)
         }
 
         @JsName("canonicalizeScript")
-        @JvmStatic
         internal fun canonicalizeScript(s: String): String {
             return LocaleUtils.toTitleString(s)
         }
 
         @JsName("canonicalizeRegion")
-        @JvmStatic
         internal fun canonicalizeRegion(s: String): String {
             return LocaleUtils.toUpperString(s)
         }
 
         @JsName("canonicalizeVariant")
-        @JvmStatic
         internal fun canonicalizeVariant(s: String): String {
             return LocaleUtils.toLowerString(s)
         }
 
         @JsName("canonicalizeExtension")
-        @JvmStatic
         internal fun canonicalizeExtension(s: String): String {
             return LocaleUtils.toLowerString(s)
         }
 
         @JsName("canonicalizeExtensionSingleton")
-        @JvmStatic
         internal fun canonicalizeExtensionSingleton(s: String): String {
             return LocaleUtils.toLowerString(s)
         }
 
         @JsName("canonicalizeExtensionSubtag")
-        @JvmStatic
         internal fun canonicalizeExtensionSubtag(s: String): String {
             return LocaleUtils.toLowerString(s)
         }
 
         @JsName("canonicalizePrivateuse")
-        @JvmStatic
         internal fun canonicalizePrivateuse(s: String): String {
             return LocaleUtils.toLowerString(s)
         }
 
         @JsName("canonicalizePrivateuseSubtag")
-        @JvmStatic
         internal fun canonicalizePrivateuseSubtag(s: String): String {
             return LocaleUtils.toLowerString(s)
         }

@@ -32,7 +32,6 @@
 package org.firas.util
 
 import kotlin.js.JsName
-import kotlin.jvm.JvmStatic
 
 /**
  *
@@ -128,14 +127,12 @@ internal class LocaleExtensions {
     }
 
     companion object {
-        @JvmStatic
         val CALENDAR_JAPANESE = LocaleExtensions(
             "u-ca-japanese",
             UnicodeLocaleExtension.SINGLETON,
             UnicodeLocaleExtension.CA_JAPANESE
         )
 
-        @JvmStatic
         val NUMBER_THAI = LocaleExtensions(
             "u-nu-thai",
             UnicodeLocaleExtension.SINGLETON,
@@ -143,12 +140,10 @@ internal class LocaleExtensions {
         )
 
         @JsName("isValidKey")
-        @JvmStatic
         internal fun isValidKey(c: Char): Boolean {
             return LanguageTag.isExtensionSingletonChar(c) || LanguageTag.isPrivateusePrefixChar(c)
         }
 
-        @JvmStatic
         private fun toID(map: Map<Char, LocaleExtension>): String {
             val buf = StringBuilder()
             var privuse: LocaleExtension? = null

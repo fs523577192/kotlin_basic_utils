@@ -37,7 +37,7 @@ import kotlin.js.JsName
  *
  * @author Wu Yuping (migrate from OpenJDK 11)
  */
-internal open class LocaleExtension private constructor(
+/*internal*/ open class LocaleExtension private constructor(
     internal val key: Char,
     private var value: String?,
     private var id: String?

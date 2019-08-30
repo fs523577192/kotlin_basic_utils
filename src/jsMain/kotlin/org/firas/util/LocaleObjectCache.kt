@@ -4,7 +4,7 @@ package org.firas.util
  *
  * @author Wu Yuping
  */
-internal actual abstract class LocaleObjectCache<K, V> {
+/*internal*/ abstract class LocaleObjectCache<K, V> {
 
     private val map: MutableMap<K, CacheEntry<K, V>>
 
@@ -12,9 +12,9 @@ internal actual abstract class LocaleObjectCache<K, V> {
         this.map = HashMap(initialCapacity, loadFactor)
     }
 
-    actual constructor(): this(16, 0.75f)
+    constructor(): this(16, 0.75f)
 
-    actual fun get(key: K): V? {
+    fun get(key: K): V? {
         var value: V? = null
         var entry = this.map[key]
         if (null != entry) {
@@ -28,7 +28,7 @@ internal actual abstract class LocaleObjectCache<K, V> {
                 return null
             }
 
-            val newEntry = CacheEntry(_key, newValue)
+            val newEntry: CacheEntry<K, V> = CacheEntry(_key, newValue)
             entry = map.putIfAbsent(_key, newEntry)
 
             if (null == entry) {
@@ -44,15 +44,15 @@ internal actual abstract class LocaleObjectCache<K, V> {
         return value
     }
 
-    internal actual fun put(key: K, value: V): V? {
+    internal fun put(key: K, value: V): V? {
         val entry = CacheEntry(key, value)
         val oldEntry = this.map.put(key, entry)
         return oldEntry?.value
     }
 
-    protected actual abstract fun createObject(key: K): V?
+    protected abstract fun createObject(key: K): V?
 
-    protected actual fun normalizeKey(key: K): K {
+    protected fun normalizeKey(key: K): K {
         return key
     }
 

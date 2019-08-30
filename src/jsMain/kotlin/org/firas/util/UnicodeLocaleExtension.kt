@@ -32,13 +32,12 @@
 package org.firas.util
 
 import kotlin.js.JsName
-import kotlin.jvm.JvmStatic
 
 /**
  *
  * @author Wu Yuping
  */
-internal class UnicodeLocaleExtension: LocaleExtension {
+/*internal*/ class UnicodeLocaleExtension: LocaleExtension {
 
     companion object {
         internal const val SINGLETON = 'u'
@@ -47,13 +46,11 @@ internal class UnicodeLocaleExtension: LocaleExtension {
         internal val NU_THAI = UnicodeLocaleExtension("nu", "thai")
 
         @JsName("isSingletonChar")
-        @JvmStatic
         internal fun isSingletonChar(c: Char): Boolean {
             return SINGLETON == LocaleUtils.toLower(c)
         }
 
         @JsName("isAttribute")
-        @JvmStatic
         internal fun isAttribute(s: String): Boolean {
             // 3*8alphanum
             val len = s.length
@@ -61,14 +58,12 @@ internal class UnicodeLocaleExtension: LocaleExtension {
         }
 
         @JsName("isKey")
-        @JvmStatic
         internal fun isKey(s: String): Boolean {
             // 2alphanum
             return s.length == 2 && LocaleUtils.isAlphaNumericString(s)
         }
 
         @JsName("isTypeSubtag")
-        @JvmStatic
         internal fun isTypeSubtag(s: String): Boolean {
             // 3*8alphanum
             val len = s.length

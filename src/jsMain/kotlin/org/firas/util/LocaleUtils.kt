@@ -32,7 +32,6 @@
 package org.firas.util
 
 import kotlin.js.JsName
-import kotlin.jvm.JvmStatic
 
 /**
  * Collection of static utility methods for Locale support. The
@@ -47,7 +46,6 @@ internal class LocaleUtils private constructor() {
          * Compares two ASCII Strings s1 and s2, ignoring case.
          */
         @JsName("caseIgnoreMatch")
-        @JvmStatic
         internal fun caseIgnoreMatch(s1: String, s2: String): Boolean {
             if (s1 === s2) {
                 return true
@@ -69,20 +67,17 @@ internal class LocaleUtils private constructor() {
         }
 
         @JsName("caseIgnoreCompare")
-        @JvmStatic
         internal fun caseIgnoreCompare(s1: String, s2: String): Int {
             return if (s1 === s2) 0
                     else toLowerString(s1).compareTo(toLowerString(s2))
         }
 
         @JsName("toUpper")
-        @JvmStatic
         internal fun toUpper(c: Char): Char {
             return if (isLower(c)) (c.toInt() - 0x20).toChar() else c
         }
 
         @JsName("toLower")
-        @JvmStatic
         internal fun toLower(c: Char): Char {
             return if (isUpper(c)) (c.toInt() + 0x20).toChar() else c
         }
@@ -91,7 +86,6 @@ internal class LocaleUtils private constructor() {
          * Converts the given ASCII String to lower-case.
          */
         @JsName("toLowerString")
-        @JvmStatic
         internal fun toLowerString(s: String): String {
             val len = s.length
             var idx = 0
@@ -114,7 +108,6 @@ internal class LocaleUtils private constructor() {
         }
 
         @JsName("toUpperString")
-        @JvmStatic
         internal fun toUpperString(s: String): String {
             val len = s.length
             var idx = 0
@@ -137,7 +130,6 @@ internal class LocaleUtils private constructor() {
         }
 
         @JsName("toTitleString")
-        @JvmStatic
         internal fun toTitleString(s: String): String {
             val len: Int = s.length
             if (0 == len) {
@@ -172,13 +164,11 @@ internal class LocaleUtils private constructor() {
         }
 
         @JsName("isAlpha")
-        @JvmStatic
         internal fun isAlpha(c: Char): Boolean {
             return c in 'A'..'Z' || c in 'a'..'z'
         }
 
         @JsName("isAlphaString")
-        @JvmStatic
         internal fun isAlphaString(s: String): Boolean {
             val len = s.length
             for (i in 0 until len) {
@@ -190,13 +180,11 @@ internal class LocaleUtils private constructor() {
         }
 
         @JsName("isNumeric")
-        @JvmStatic
         internal fun isNumeric(c: Char): Boolean {
             return c in '0'..'9'
         }
 
         @JsName("isNumericString")
-        @JvmStatic
         internal fun isNumericString(s: String): Boolean {
             val len = s.length
             for (i in 0 until len) {
@@ -208,13 +196,11 @@ internal class LocaleUtils private constructor() {
         }
 
         @JsName("isAlphaNumeric")
-        @JvmStatic
         internal fun isAlphaNumeric(c: Char): Boolean {
             return isAlpha(c) || isNumeric(c)
         }
 
         @JsName("isAlphaNumericString")
-        @JvmStatic
         internal fun isAlphaNumericString(s: String): Boolean {
             val len = s.length
             for (i in 0 until len) {
