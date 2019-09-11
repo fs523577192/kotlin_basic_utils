@@ -413,6 +413,8 @@ class Character {
          * @see Character.UnicodeBlock.of
          * @since  Java 1.5
          */
+        @JsName("isHighSurrogate")
+        @JvmStatic
         fun isHighSurrogate(ch: Char): Boolean {
             // Help VM constant-fold; MAX_HIGH_SURROGATE + 1 == MIN_LOW_SURROGATE
             return ch >= MIN_HIGH_SURROGATE && ch < MAX_HIGH_SURROGATE + 1
@@ -438,6 +440,8 @@ class Character {
          * @see Character.isHighSurrogate
          * @since  Java 1.5
          */
+        @JsName("isLowSurrogate")
+        @JvmStatic
         fun isLowSurrogate(ch: Char): Boolean {
             return ch >= MIN_LOW_SURROGATE && ch < MAX_LOW_SURROGATE + 1
         }
@@ -464,6 +468,8 @@ class Character {
          * `false` otherwise.
          * @since  Java 1.7
          */
+        @JsName("isSurrogate")
+        @JvmStatic
         fun isSurrogate(ch: Char): Boolean {
             return ch >= MIN_SURROGATE && ch < MAX_SURROGATE + 1
         }
@@ -539,10 +545,10 @@ class Character {
         @JsName("codePointAtInCharSequence")
         @JvmStatic
         fun codePointAt(seq: CharSequence, index: Int): Int {
-            var index = index
-            val c1 = seq[index]
-            if (isHighSurrogate(c1) && ++index < seq.length) {
-                val c2 = seq[index]
+            var _index = index
+            val c1 = seq[_index]
+            if (isHighSurrogate(c1) && ++_index < seq.length) {
+                val c2 = seq[_index]
                 if (isLowSurrogate(c2)) {
                     return toCodePoint(c1, c2)
                 }

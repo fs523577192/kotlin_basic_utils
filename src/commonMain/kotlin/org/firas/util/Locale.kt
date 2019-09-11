@@ -17,3 +17,10 @@ expect class Locale {
 
     fun toLanguageTag(): String
 }
+
+expect enum class LocaleCategory {
+    DISPLAY, FORMAT
+}
+
+expect fun getDefaultLocale(): Locale
+expect fun getDefaultLocale(category: LocaleCategory): Locale

@@ -550,11 +550,11 @@ actual class Locale {
         private class Cache: LocaleObjectCache<Any, Locale>() {
 
             override fun createObject(key: Any): Locale? {
-                if (key is BaseLocale) {
-                    return Locale(key, null)
+                return if (key is BaseLocale) {
+                    Locale(key, null)
                 } else {
                     val localeKey = key as LocaleKey
-                    return Locale(localeKey.base, localeKey.exts)
+                    Locale(localeKey.base, localeKey.exts)
                 }
             }
         }
@@ -616,7 +616,7 @@ actual class Locale {
          * @return the `Locale` instance requested
          * @exception NullPointerException if any argument is null.
          */
-        internal fun getInstance(language: String, country: String, variant: String): Locale? {
+        internal fun getInstance(language: String, country: String, variant: String?): Locale? {
             return getInstance(language, "", country, variant, null)
         }
 
@@ -640,6 +640,56 @@ actual class Locale {
                 LOCALECACHE.get(key)
             }
         }
+
+        var defaultLocale: Locale? = null
+        var defaultDisplayLocale: Locale? = null
+        var defaultFormatLocale: Locale? = null
+
+        fun getDefault(): Locale {
+            if (null == defaultLocale) {
+                if (js("typeof(navigator) === 'object'")) {
+                    defaultLocale = getDefaultInBrowser()
+                }
+            }
+            if (null == defaultLocale) {
+                defaultLocale = ENGLISH
+            }
+            return defaultLocale!!
+        }
+
+        private fun getDefaultInBrowser(): Locale? {
+            val language = js("navigator && (navigator.userLanguage || navigator.language ||" +
+                    "navigator.browserLanguage || navigator.systemLanguage) && null") as String?
+            if (language != null) {
+                val langCountry = Regex("([a-z]{2})-([A-Z]{2})").find(language)
+                if (langCountry != null) {
+                    return getInstance(langCountry.groupValues[1], langCountry.groupValues[2], null)
+                }
+            }
+            return null
+        }
+
+        fun getDefaultByCategory(category: Category): Locale {
+            /*
+            return when (category) {
+                Category.DISPLAY -> {
+                    if (defaultDisplayLocale == null) {
+                        defaultDisplayLocale = initDefault(category)
+                    }
+                    defaultDisplayLocale!!
+                }
+                Category.FORMAT -> {
+                    if (defaultFormatLocale == null) {
+                        defaultFormatLocale = initDefault(category)
+                    }
+                    defaultFormatLocale!!
+                }
+                else -> throw AssertionError("Unknown Category")
+            }
+            */
+            return getDefault()
+        }
+
         /**
          * Enum for locale categories.  These locale categories are used to get/set
          * the default locale for the specific functionality represented by the
@@ -1304,3 +1354,8 @@ actual class Locale {
 
 
 }
+
+actual typealias LocaleCategory = Locale.Companion.Category
+
+actual fun getDefaultLocale(): Locale = Locale.getDefault()
+actual fun getDefaultLocale(category: LocaleCategory): Locale = Locale.getDefaultByCategory(category)
