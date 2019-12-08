@@ -8,10 +8,11 @@ repositories {
     }
 }
 
-group 'org.firas.basic_utils'
-version '1.5.0'
+group 'tech.firas.framework'
+version '1.0.0-RELEASE'
 
 apply plugin: 'maven-publish'
+apply plugin: 'signing'
 kotlin {
     targets {
         fromPreset(presets.jvm, 'jvm')
@@ -56,4 +57,19 @@ kotlin {
         }
     }
     compileKotlinJs.kotlinOptions.moduleKind = 'umd'
+}
+publishing {
+    repositories {
+        maven {
+            name 'deploy'
+            url = version.endsWith("SNAPSHOT") ? deploySnapshotRepoUrl : deployRepoUrl
+            credentials {
+                username = deployRepoUsername
+                password = deployRepoPassword
+            }
+        }
+    }
+    signing {
+        sign  jsJar, jvmJar, metadataJar
+    }
 }

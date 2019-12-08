@@ -25,6 +25,6 @@ pluginManagement {
         }
     }
 }
-rootProject.name = 'basic_utils'
+rootProject.name = 'basic-utils'
 
 enableFeaturePreview('GRADLE_METADATA')
