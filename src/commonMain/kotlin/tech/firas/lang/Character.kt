@@ -30,8 +30,9 @@ import kotlin.js.JsName
 import kotlin.jvm.JvmStatic
 
 /**
+ * Some methods migrated from the class Character of OpenJDK 1.8
  *
- * @author Wu Yuping
+ * @author Wu Yuping (migrate to Kotlin)
  */
 class Character {
     companion object {

@@ -57,7 +57,7 @@ import kotlin.jvm.JvmStatic
  * @author Josh Bloch
  * @author Neal Gafter
  * @author John Rose
- * @author Wu Yuping (migrate to Kotlin)
+ * @author Wu Yuping (migrate from OpenJDK 1.8)
  * @since  Java 1.2
  */
 class Arrays private constructor() {

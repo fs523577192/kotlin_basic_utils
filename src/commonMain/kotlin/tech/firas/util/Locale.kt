@@ -2,7 +2,7 @@ package tech.firas.util
 
 /**
  *
- * @author Wu Yuping
+ * @author Wu Yuping (migrate from Java 11)
  */
 expect class Locale {
 

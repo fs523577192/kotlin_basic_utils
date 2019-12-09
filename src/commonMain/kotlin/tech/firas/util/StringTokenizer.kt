@@ -24,9 +24,7 @@
  */
 package tech.firas.util
 
-import tech.firas.lang.Character
 import kotlin.js.JsName
-
 
 /**
  * The string tokenizer class allows an application to break a
