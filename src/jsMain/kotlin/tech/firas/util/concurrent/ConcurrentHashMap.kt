@@ -17,10 +17,6 @@ package tech.firas.util.concurrent
 
 import kotlin.reflect.KClass
 
-/**
- *
- * @author Wu Yuping
- */
 @JsName("getConcurrentHashMap")
 actual fun <K: Any, V: Any> getConcurrentHashMap(
         keyClass: KClass<K>, valueClass: KClass<V>): MutableMap<K, V> {

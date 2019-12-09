@@ -15,10 +15,6 @@
  */
 package tech.firas.util
 
-/**
- *
- * @author Wu Yuping
- */
 actual typealias Locale = java.util.Locale
 
 actual typealias LocaleCategory = java.util.Locale.Category

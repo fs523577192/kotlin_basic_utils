@@ -18,7 +18,7 @@ package tech.firas.util.concurrent
 import kotlin.reflect.KClass
 
 /**
- *
+ * A polyfill of Java `ConcurrentHashMap` in Kotlin multi-platform project
  * @author Wu Yuping
  */
 expect fun <K: Any, V: Any> getConcurrentHashMap(
